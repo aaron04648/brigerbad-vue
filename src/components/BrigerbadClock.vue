@@ -22,6 +22,7 @@
           <tbody>
             <tr
               v-for="(item, k) in Programm"
+              v-on="Clock(item,k)"
               :key="item.id"
               :class="{ applyBlue: Timeleft(item, k) }"
               
@@ -65,6 +66,7 @@
 </template>
 
 <script>
+
 import Clockevent from ".//BrigerbadClockevent.json";
 import ClockProgramm from ".//BrigerbadProgramm.json";
 import Piechart from "./ChildPie.vue";
@@ -85,15 +87,15 @@ Piechart
       time2: "",
       time3: "",
       Test: 200,
-
+      applyBlueData:false,
       Chartdata1: undefined,
       Chartdata2: undefined,
     };
   },
   methods: {
-    Timeleft: function (item, k) {
-     
-      setInterval(() => {
+   Timeleft(item, k) {
+    
+    
          var timeNow = new Date();
         var time2 = new Date();
         time2.setHours(item.hour);
@@ -114,54 +116,48 @@ Piechart
         this.time3 = time3;
         this.time2 = time2;
         this.timenow = timeNow;
-        (time2 < timeNow && timeNow < time3) 
-      })
-       
-        
-    },
-
-    Clock: function () {
-      var min = 10;
-      var min2 = 50;
-
-      setInterval(() => {
-        var timenow = new Date();
-        var TimeArr = new Date();
-        this.Programm.forEach((element) => {
-          TimeArr.setHours(element.hour);
-          TimeArr.setMinutes(element.min);
-        });
-        min = min - 1;
-        min2 = min2 + 1;
-       
-
-        this.Intervalltest = timenow.toLocaleTimeString();
-
-        /*const found = this.Programm.find(
-          () =>
-            timenow.toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            }) <
-            TimeArr.toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            })
-        );*/
-
-        
-        //
-       
-
-    
- console.log(min);
- console.log(min2);
+        return(time2 < timeNow && timeNow < time3)
       
-      }, 1000);
+    },Clock(item,k){
+
+       var timeNow = new Date();
+        var time2 = new Date();
+        time2.setHours(item.hour);
+        time2.setMinutes(item.min);
+        time2.setSeconds(0);
+        var time3 = new Date();
+        if (this.Programm[k + 1] === undefined) {
+          return time2 < timeNow;
+        }
+        if (item === undefined) {
+          return time2 < timeNow;
+        }
+
+        time3.setHours(this.Programm[k + 1].hour);
+        time3.setMinutes(this.Programm[k + 1].min);
+        time3.setSeconds(0);
+        if(time2 < timeNow && timeNow < time3){
+          var h1 = (timeNow.getHours()-time2.getHours())*60
+          var min1 = timeNow.getMinutes()-time2.getMinutes()
+          var tot1 = h1+min1
+
+          var h2 = (time3.getHours()-timeNow.getHours())*60
+          var min2 = (time3.getMinutes()-timeNow.getMinutes())
+          var tot2 = h2+min2
+
+          this.Chartdata1 =tot1
+          this.Chartdata2 =tot2
+        }
+        
+        console.log(tot1)
+        console.log(tot2)
+    }
+
+   
 
     
 
-    },
+    
   },
   mounted() {
     this.Clock();

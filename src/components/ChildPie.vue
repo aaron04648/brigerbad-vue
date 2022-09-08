@@ -64,19 +64,25 @@ export default {
   },
   data() {
     return {
-      chartData: {
-        datasets: [
+      
+     
+    }
+  },computed:{
+    chartData() {
+        return{
+          datasets: [
           {
             backgroundColor: [ '#00D8FF', '#DD1B16'],
             data: [80, 10]
           }
         ]
-      },
-      chartOptions: {
+        } 
+      }, chartOptions() {return{
         responsive: true,
         maintainAspectRatio: false
       }
-    }
+        
+      }
   }
 }
 </script>

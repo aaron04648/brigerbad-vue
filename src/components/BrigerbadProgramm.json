@@ -33,35 +33,35 @@
         "ID":5,
         "hour":14,
         "min":0,
-        "beginTime":"13:00",
+        "beginTime":"14:00",
         "Event":"Tornado",
         "farbig":false
     },{
         "ID":6,
         "hour":15,
         "min":0,
-        "beginTime":"13:00",
+        "beginTime":"15:00",
         "Event":"Peeling Dampfbad",
         "farbig":false
     },{
         "ID":7,
         "hour":16,
         "min":0,
-        "beginTime":"13:00",
+        "beginTime":"16:00",
         "Event":"Sommer Sturm",
         "farbig":false
     },{
         "ID":8,
         "hour":17,
         "min":0,
-        "beginTime":"13:00",
+        "beginTime":"17:00",
         "Event":"Peeling Dampfbad",
         "farbig":false
     },{
         "ID":9,
         "hour":18,
         "min":0,
-        "beginTime":"13:00",
+        "beginTime":"18:00",
         "Event":"Peeling Dampfbad",
         "farbig":false
     }
