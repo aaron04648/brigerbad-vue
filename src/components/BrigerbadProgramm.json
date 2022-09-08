@@ -1,0 +1,70 @@
+[
+    {
+        "ID":1,
+        "hour":9,
+        "min":30,
+        "beginTime":"09:30",
+        "Event":"Peeling Dampfbad",
+        "farbig":false
+    },
+    {
+        "ID":2,
+        "hour":11,
+        "min":0,
+        "beginTime":"11:00",
+        "Event":"Morgentau",
+        "farbig":false
+    },{
+        "ID":3,
+        "hour":12,
+        "min":0,
+        "beginTime":"12:00",
+    
+        "Event":"Sommer Sturm",
+        "farbig":false
+    },{
+        "ID":4,
+        "hour":13,
+        "min":0,
+        "beginTime":"13:00",
+        "Event":"Peeling Dampfbad",
+        "farbig":false
+    },{
+        "ID":5,
+        "hour":14,
+        "min":0,
+        "beginTime":"13:00",
+        "Event":"Tornado",
+        "farbig":false
+    },{
+        "ID":6,
+        "hour":15,
+        "min":0,
+        "beginTime":"13:00",
+        "Event":"Peeling Dampfbad",
+        "farbig":false
+    },{
+        "ID":7,
+        "hour":16,
+        "min":0,
+        "beginTime":"13:00",
+        "Event":"Sommer Sturm",
+        "farbig":false
+    },{
+        "ID":8,
+        "hour":17,
+        "min":0,
+        "beginTime":"13:00",
+        "Event":"Peeling Dampfbad",
+        "farbig":false
+    },{
+        "ID":9,
+        "hour":18,
+        "min":0,
+        "beginTime":"13:00",
+        "Event":"Peeling Dampfbad",
+        "farbig":false
+    }
+        
+    
+]
