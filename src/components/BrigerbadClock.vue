@@ -1,31 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@aaron04648 
-aaron04648
-/
-brigerbad-vue
-Public
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-Settings
-brigerbad-vue/src/components/BrigerbadClock.vue
-
-aaron04648 Clock
-Latest commit b9b2371 in 31 minutes
- History
- 0 contributors
-271 lines (232 sloc)  5.13 KB
 
 <template>
   <div>
@@ -51,7 +23,7 @@ Latest commit b9b2371 in 31 minutes
           <tbody>
             <tr
               v-for="(item, k) in Programm"
-              v-on="Clock(item,k)"
+              v-on:update="Clock(item,k)"
               :key="item.id"
               :class="{ applyBlue: Timeleft(item, k) }"
               
@@ -67,16 +39,16 @@ Latest commit b9b2371 in 31 minutes
 
       <div class="box">
         <div class="smalbox">
-          <h2 id="title1" alt="">{{ this.Intervalltest }}</h2>
+          <h2 id="title1" alt="">{{ this.Intervalltest}} minuten</h2>
           <h3 id="Time1"></h3>
-          <Piechart/>
+          <Piechart :Chartdata1="Chartdata1" :Chartdata2="Chartdata2"/>
           
         </div>
         <div class="smalbox">
-          <h2 id="title2">Laden...</h2>
+          <h2 id="title2">{{this.Chartdata3}} minuten</h2>
           <h3 id="Time2"></h3>
-           <Piechart :Chartdata1="Chartdata1" :Chartdata2="Chartdata2" style="margin=none">
-           </Piechart>
+           <Piechartunten :Chartdata1="Chartdata1" :Chartdata3="Chartdata3">
+           </Piechartunten>
         </div>
       </div>
 
@@ -98,10 +70,12 @@ Latest commit b9b2371 in 31 minutes
 import Clockevent from ".//BrigerbadClockevent.json";
 import ClockProgramm from ".//BrigerbadProgramm.json";
 import Piechart from "./ChildPie.vue";
+import Piechartunten from "./PieUnten.vue";
 export default {
  
 components:{
-Piechart
+Piechart,
+Piechartunten
 },
   data() {
     return {
@@ -116,34 +90,33 @@ Piechart
       applyBlueData:false,
       Chartdata1: undefined,
       Chartdata2: undefined,
+      Chartdata3: undefined,
       item:undefined,
       k:undefined
     };
   },watch:{
-
-       
-       
-        
-       
-    
   },
   methods: {
-   Timeleft(item, k) {
-    
-      this.item = item
-       this.k = k
-         var timeNow = new Date();
+   Timeleft:function(item, k) {
+        var timeNow = new Date();
         var time2 = new Date();
         time2.setHours(item.hour);
         time2.setMinutes(item.min);
         time2.setSeconds(0);
         var time3 = new Date();
+        var time4 = new Date();
         if (this.Programm[k + 1] === undefined) {
+          return time2 < timeNow;
+        }
+        if (this.Programm[k + 2] === undefined) {
           return time2 < timeNow;
         }
         if (item === undefined) {
           return time2 < timeNow;
         }
+        time4.setHours(this.Programm[k+2].hour)
+        time4.setMinutes(this.Programm[k+2].min)
+        time4.setSeconds(0)
         time3.setHours(this.Programm[k + 1].hour);
         time3.setMinutes(this.Programm[k + 1].min);
         time3.setSeconds(0);
@@ -157,49 +130,40 @@ Piechart
           var h2 = (time3.getHours()-timeNow.getHours())*60
           var min2 = (time3.getMinutes()-timeNow.getMinutes())
           var tot2 = h2+min2
-           return true, this.Chartdata1 =tot1, this.Chartdata2 =tot2
-       
-         
+          var h3 = (time4.getHours()-timeNow.getHours())*60
+          var min3 = (time4.getMinutes()-timeNow.getMinutes())
+          var tot3 = h3+min3
+          this.Chartdata1 =tot1
+          this.Chartdata2 = tot2
+          this.Chartdata3 = tot3
+          this.Intervalltest = this.Chartdata2
+          
+          setInterval(function () {
+            var time = new Date()
+            var Increment = time.getSeconds()
+            
+            var test  = parseInt(Increment)
+          
+            test = test +1
+              console.log(test)
+            if(test===1){
+              test=0
+            window.location.reload()
+          }}, 1000);
+          
         }
-    },Clock(item,k){
-       console.log(item)
-       var timeNow = new Date();
-        var time2 = new Date();
-       time2.setHours(this.Programm.hour);
-        time2.setMinutes(this.Programm.min);
-        time2.setSeconds(0);
-        var time3 = new Date();
-        if (this.Programm[k + 1] === undefined) {
-          return time2 < timeNow;
-        }
-        if (item === undefined) {
-          return time2 < timeNow;
-        }
-        time3.setHours(this.Programm[k + 1].hour);
-        time3.setMinutes(this.Programm[k + 1].min);
-        time3.setSeconds(0);
-        if(time2 < timeNow && timeNow < time3){
-          var h1 = (timeNow.getHours()-time2.getHours())*60
-          var min1 = timeNow.getMinutes()-time2.getMinutes()
-          var tot1 = h1+min1
-          var h2 = (time3.getHours()-timeNow.getHours())*60
-          var min2 = (time3.getMinutes()-timeNow.getMinutes())
-          var tot2 = h2+min2
-           return this.Chartdata1 =tot1, this.Chartdata2 =tot2
-       
-         
-        }
-        
-       
-    }
+        //setInterval(function () {}, );
+        return time2 < timeNow && timeNow < time3;
+    },
+   
    
     
     
   },
-  mounted() {
-    console.log(this.k)
-    this.Clock();
-  },
+  computed() {
+  
+  }
+
 };
 </script>
 

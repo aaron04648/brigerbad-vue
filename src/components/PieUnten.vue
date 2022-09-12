@@ -77,7 +77,7 @@ export default {
           {
             animation:0,
             backgroundColor: [ '#00D8FF', '#DD1B16'],
-            data: [this.Chartdata1,this.Chartdata2]
+            data: [this.Chartdata1,this.Chartdata3]
           }
         ]
         } 
