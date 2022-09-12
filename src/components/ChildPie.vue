@@ -60,7 +60,9 @@ export default {
     plugins: {
       type: Array,
       default: () => []
-    }
+    },
+    Chartdata1:Number,
+    Chartdata2:Number
   },
   data() {
     return {
@@ -73,7 +75,7 @@ export default {
           datasets: [
           {
             backgroundColor: [ '#00D8FF', '#DD1B16'],
-            data: [80, 10]
+            data: [this.Chartdata1,this.Chartdata2]
           }
         ]
         } 
