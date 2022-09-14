@@ -13,7 +13,7 @@
           <option class="options" value="">{{ this.Option5 }}</option>
         </select>
         <br />
-    <json-editor-vue class="editor" v-model="data"/>
+    <JsonEditorVue class="editor" v-model="data"/>
     <button @click="saveFile()">save</button>
   {{data}}
         <br />
@@ -86,10 +86,7 @@ export default {
       }
     
     },saveFile(){
-    const data = JSON.stringify(this.arr)
-    const fs = require('fs');
-    try { fs.writeFileSync('myfile.txt', data, 'utf-8'); }
-    catch(e) { alert('Failed to save the file !'); }
+   
     },
    test(item,k){
       
