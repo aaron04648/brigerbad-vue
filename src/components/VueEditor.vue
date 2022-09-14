@@ -4,7 +4,7 @@
       <h1>JSON Edit Formular</h1>
       <p class="question">Choose which JSON File</p>
       <div class="question-answer">
-        <select name="" id="dropdownmenu1" @change="JSONedit()">
+        <select name="" id="dropdownmenu1"  @change="JSONedit()">
           <option class="options" value="">choose Jsonfile</option>
           <option class="options" value="">{{ this.Option1 }}</option>
           <option class="options" value="">{{ this.Option2 }}</option>
@@ -13,92 +13,13 @@
           <option class="options" value="">{{ this.Option5 }}</option>
         </select>
         <br />
-        <p class="question">Preview of Jsonfile:</p>
-        <div id="previewJSON">{{ this.preview }}</div>
-        <p class="question" id="questionid" style="display: none">
-          choose which ID
-        </p>
-
+    <json-editor-vue class="editor" v-model="data"/>
+    <button @click="saveFile()">save</button>
+  {{data}}
         <br />
-
-        <select @change=WhereToWrite() name="" id="idselection" style="display: none">
-          <option  v-for="item in preview" :key="item.id" id="selectedID">
-            {{ item.ID }}
-          </option>
-         
-        </select>
+      
       </div>
-      <p class="question">Write in Field</p>
-      <textarea rows="5"></textarea>
-      <p class="question">Did you find what you needed?</p>
-      <div class="question-answer">
-        <label
-          ><input type="radio" value="none" name="needed" /> Yes, all of
-          it</label
-        >
-        <label
-          ><input type="radio" value="none" name="needed" /> Yes, some of
-          it</label
-        >
-        <label
-          ><input type="radio" value="none" name="needed" /> No, none of
-          it</label
-        >
-      </div>
-      <p class="question">
-        If you did not find any or all of what you needed, please tell us what
-        information you were looking for.
-      </p>
-      <textarea rows="5"></textarea>
-      <p class="question">
-        Please tell us how easy it is to find information on the site.
-      </p>
-      <div class="question-answer">
-        <label><input type="radio" value="none" name="easy" /> Very Easy</label>
-        <label><input type="radio" value="none" name="easy" /> Easy</label>
-        <label><input type="radio" value="none" name="easy" /> Average</label>
-        <label><input type="radio" value="none" name="easy" /> Difficult</label>
-        <label
-          ><input type="radio" value="none" name="easy" /> Very Difficult</label
-        >
-      </div>
-      <p class="question">What is your overall impression of the site?</p>
-
-      <p class="question">
-        What is the likelihood that you will visit the website again?
-      </p>
-      <div class="question-answer">
-        <label
-          ><input type="radio" value="none" name="likelihood" /> Extremely
-          likely</label
-        >
-        <label
-          ><input type="radio" value="none" name="likelihood" /> Very
-          likely</label
-        >
-        <label
-          ><input type="radio" value="none" name="likelihood" /> Moderately
-          likely</label
-        >
-        <label
-          ><input type="radio" value="none" name="likelihood" /> aSlightly
-          likely</label
-        >
-        <label
-          ><input type="radio" value="none" name="likelihood" /> Not at all
-          likely</label
-        >
-      </div>
-      <p class="question">
-        Please add any comments you have for improving the website. We welcome
-        suggestions on specific areas for improvements, features you would like
-        to see added to the site, and examples of what you consider good
-        websites.
-      </p>
-      <textarea rows="5"></textarea>
-      <div class="btn-block">
-        <button type="submit" href="/">Send</button>
-      </div>
+      
     </form>
   </div>
 </template>
@@ -109,9 +30,12 @@ import Onlineticket from ".//Online-ticket.json";
 import Spa from ".//jsonDataSpa.json";
 import Therme from ".//jsonData.json";
 import AngeboteWerbung from ".//AngeboteWerbung.json";
+import JsonEditorVue from 'json-editor-vue3'
 
 export default {
-  data() {
+  components: {
+    JsonEditorVue
+  },data() {
     return {
       AngeboteWerbung: AngeboteWerbung,
       AngeboteWerbungID: "",
@@ -128,82 +52,60 @@ export default {
       Option3: "Onlineticket",
       Option4: "AngeboteWerbung",
       Option5: "Sprechblase",
+    
       OptionID: "",
       preview: "",
-    };
+      inputvalue:"",
+      data: ""
+    }
   },
   methods: {
-    JSONedit: function () {
+    JSONedit(){
       var select = document.getElementById("dropdownmenu1");
       var value = select.options[select.selectedIndex].text;
-      console.log(value);
-      if (value == "choose Jsonfile") {
-        document.getElementById("previewJSON").style.display = "none";
-        this.preview = "";
-        console.log("default");
-      }
-      if (value == this.Option1) {
-        document.getElementById("previewJSON").style.display = "block";
-        document.getElementById("questionid").style.display = "block";
-        document.getElementById("idselection").style.display = "block";
 
-        this.preview = this.Therme;
-        console.log("EntreeTherme");
-      }
-      if (value == this.Option2) {
-        document.getElementById("previewJSON").style.display = "block";
-        document.getElementById("questionid").style.display = "block";
-        document.getElementById("idselection").style.display = "block";
-        this.preview = this.Spa;
-        console.log("EntreeSpa");
-      }
-      if (value == this.Option3) {
-        document.getElementById("previewJSON").style.display = "block";
-        document.getElementById("questionid").style.display = "block";
-        document.getElementById("idselection").style.display = "block";
-        this.preview = this.Onlineticket;
-        console.log("Onlineticket");
-      }
-      if (value == this.Option4) {
-        document.getElementById("previewJSON").style.display = "block";
-        document.getElementById("questionid").style.display = "block";
-        document.getElementById("idselection").style.display = "block";
-        this.preview = this.AngeboteWerbung;
-        console.log("AngeboteWerbung");
-      }
-      if (value == this.Option5) {
-        document.getElementById("previewJSON").style.display = "block";
-        document.getElementById("questionid").style.display = "block";
-        document.getElementById("idselection").style.display = "block";
-        this.preview = this.Sprechblasen;
-        console.log("Sprechblase");
-      }
-
-    /*  this.Sprechblasen.forEach((element) => {
-        this.SprechblasenID = element.ID;
-        console.log(this.SprechblasenID);
-      });
-      this.Onlineticket.forEach((element) => {
-        this.OnlineticketID = element.ID;
-      });
-      this.Spa.forEach((element) => {
-        this.SpaID = element.ID;
-      });
-      this.Therme.forEach((element) => {
-        this.ThermeID = element.ID;
-        console.log(this.ThermeID);
-      });*/
-   
+      if(value == "EntreeSpa"){
+        this.data = this.Spa
       
-    },WhereToWrite(){
-    var select = document.getElementById("idselected");
-    var value = select.options[select.selectedIndex].text;
-    if(value == 2){
+      }
+      if(value == "EntreeTherme"){
+        this.data = this.Therme
+    
+      }
+      if(value == "Onlineticket"){
+        this.data = this.Onlineticket
+        
+      }
+      if(value == "AngeboteWerbung"){
+        this.data = this.AngeboteWerbung
+      
+      }
+      if(value == "Sprechblase"){
+        this.data = this.Sprechblasen
+      
+      }
+    
+    },saveFile(){
+    const data = JSON.stringify(this.arr)
+    const fs = require('fs');
+    try { fs.writeFileSync('myfile.txt', data, 'utf-8'); }
+    catch(e) { alert('Failed to save the file !'); }
+    },
+   test(item,k){
+      
+      console.log("test")
+console.log(k)
+console.log(item)
+this.k = k
+    },
+    WhereToWrite(id){
       console.log("hallo")
-    }
+   console.log(id)
     }
   },
-  mounted() {},
+  mounted() {
+    console.log(this.inputvalue)
+  },
 };
 </script>
 
