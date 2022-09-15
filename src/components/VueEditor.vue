@@ -14,8 +14,9 @@
         </select>
         <br />
     <JsonEditorVue class="editor" v-model="data"/>
-    <button @click="saveFile()">save</button>
-  {{data}}
+    <button @click.prevent="saveFile()">save</button>
+  write with test{{test}}
+  <p>write with data {{data}}</p>
         <br />
       
       </div>
@@ -25,6 +26,7 @@
 </template>
 
 <script>
+
 import BrigeniaSprechblasen from ".//BrigeniaSprechblasen.json";
 import Onlineticket from ".//Online-ticket.json";
 import Spa from ".//jsonDataSpa.json";
@@ -35,7 +37,10 @@ import JsonEditorVue from 'json-editor-vue3'
 export default {
   components: {
     JsonEditorVue
-  },data() {
+  },watch:{
+    
+  },
+  data() {
     return {
       AngeboteWerbung: AngeboteWerbung,
       AngeboteWerbungID: "",
@@ -56,7 +61,8 @@ export default {
       OptionID: "",
       preview: "",
       inputvalue:"",
-      data: ""
+      data:"",
+      test:""
     }
   },
   methods: {
@@ -86,22 +92,18 @@ export default {
       }
     
     },saveFile(){
-   
+      console.log(this.data)
+      localStorage.setItem("storedData",this.data)
+      console.log(localStorage.getItem("storedData")) 
     },
-   test(item,k){
-      
-      console.log("test")
-console.log(k)
-console.log(item)
-this.k = k
-    },
+  
     WhereToWrite(id){
       console.log("hallo")
    console.log(id)
     }
   },
   mounted() {
-    console.log(this.inputvalue)
+    this.test = localStorage.getItem("storedData")
   },
 };
 </script>

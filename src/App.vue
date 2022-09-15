@@ -30,6 +30,21 @@ export default {
   -moz-osx-font-smoothing: grayscale;
  
   color: #2c3e50;
-  margin-top: 60px;
+  margin:0;
+  height: 100vh;
+  width: 1000vw;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+  
+}body{
+  margin: 0;
+}
+::-webkit-scrollbar {
+  display: none;
 }
 </style>

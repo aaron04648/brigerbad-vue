@@ -2,26 +2,20 @@
     {
         "ID":1,
         "type":"Sauna",
-        "price_3h":"21.00",
-        "price_day":"27.00"
+        "price_3h":"21 CHF",
+        "price_day":"27 CHF"
     },
     {
         "ID":2,
         "type":"blablam",
-        "price_3h":"18.00",
-        "price_day":"24.00"
+        "price_3h":"18 CHF",
+        "price_day":"24 CHF"
     },
     {
         "ID":3,
         "type":"Lorem Ipsum",
-        "price_3h":"15.00",
-        "price_day":"20.00"
-    },
-    {
-        "ID":4,
-        "type":"Lorem Ipsum",
-        "price_3h":"13.00",
-        "price_day":"18.00"
+        "price_3h":"15 CHF",
+        "price_day":"20 CHF"
     }
         
     
