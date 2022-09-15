@@ -23,9 +23,21 @@ export default {
 }
 </script>
 
-<style>
+<style> 
+@font-face {
+  font-family: "TTNormsThin";
+  src: local("TTNorms-Bold"),
+   url(./Fonts/TTNorms-Thin.otf) format("truetype");
+} 
+@font-face {
+  font-family: "TTNormsBold";
+  src: local("TTNorms-Bold"),
+   url(./Fonts/TTNorms-Medium.otf) format("truetype");
+} 
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-weight: bold;
+ font-family: TTNormsThin;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
  

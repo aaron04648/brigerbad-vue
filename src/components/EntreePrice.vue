@@ -55,6 +55,7 @@ export default {
 
 
 th {
+  font-family: TTNormsBold;
   font-weight: bold;
 }
 
@@ -77,6 +78,7 @@ table {
 }
 .th-1 {
   padding-left: 2.5vw;
+   padding-bottom: 1vw;
 }
 .th-2 {
   padding-left: 18vw;
@@ -90,6 +92,7 @@ table {
 
 .td-1 {
    padding-left: 2.5vw;
+   padding-bottom: 1vw;
 }
 
 .td-2 {
