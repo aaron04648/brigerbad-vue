@@ -6,4 +6,6 @@ import "chart.js"
 import "hchs-vue-charts"
 import fullscreen from 'vue-fullscreen'
 
+
+
 createApp(App).use(router,window.Vuecharts,JsonEditorVue,fullscreen).mount('#app')

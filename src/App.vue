@@ -1,48 +1,50 @@
 <template>
-
-<router-view
-        
-      
-/>
-
-
+  <router-view />
 </template>
 
 <script>
-
 export default {
-  name: 'App',
-  components: {
-  
-  }, data(){
-    return{
-      test:""
-    }
+  name: "App",
+  components: {},
+  data() {
+    return {
+      test: "",
+      connection: null,
+    };
+  },
+  created: function () {
+    Console.log("Starting connection");
+    this.connection = new WebSocket("wss://echo.websocket.org");
 
-  }
-}
+    this.connection.onopen = function (event) {
+      console.log(event);
+      console.log("Successfully connect to the echo Websocket Server");
+    };
+    this.connection.onmessage = function (event) {
+      console.log(event);
+    };
+  },
+};
 </script>
 
-<style> 
+<style>
 @font-face {
   font-family: "TTNormsThin";
-  src: local("TTNorms-Bold"),
-   url(./Fonts/TTNorms-Thin.otf) format("truetype");
-} 
+  src: local("TTNorms-Bold"), url(./Fonts/TTNorms-Thin.otf) format("truetype");
+}
 @font-face {
   font-family: "TTNormsBold";
-  src: local("TTNorms-Bold"),
-   url(./Fonts/TTNorms-Medium.otf) format("truetype");
-} 
+  src: local("TTNorms-Bold"), url(./Fonts/TTNorms-Medium.otf) format("truetype");
+}
 
 #app {
   font-weight: bold;
- font-family: TTNormsThin;
+  font-family: TTNormsThin;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
- 
+
   color: #2c3e50;
-  margin:0;
+  margin: 0;
   height: 100vh;
   width: 1000vw;
   padding: 0;
@@ -52,8 +54,8 @@ export default {
   bottom: 0;
   right: 0;
   overflow: hidden;
-  
-}body{
+}
+body {
   margin: 0;
 }
 ::-webkit-scrollbar {
