@@ -48,7 +48,8 @@ data(){
 <style scoped>
 
 th {
-  font-weight: bold;
+  font-weight: bolder;
+  font-family: TTNormsBold;
 }
 
 table {
@@ -70,6 +71,7 @@ table {
 }
 .th-1 {
   padding-left: 2.5vw;
+  padding-bottom:1vw ;
 }
 .th-2 {
   padding-left: 21.5vw;
@@ -83,6 +85,7 @@ table {
 
 .td-1 {
    padding-left: 2.5vw;
+   padding-bottom:1vw ;
 }
 
 .td-2 {

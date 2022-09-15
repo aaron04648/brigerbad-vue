@@ -127,20 +127,20 @@ export default {
 }
 .galleryImg1 {
   width: 13vw;
-  margin-top: 3vw;
+  margin-top: 2vw;
   position: fixed;
 
   animation: zoomin1 2s infinite;
 }
 .galleryImg2 {
-  margin-top: 6vw;
+  margin-top: 8vw;
   width: 13vw;
   position: fixed;
 
   animation: zoomin2 2s infinite;
 }
 .galleryImg3 {
-  margin-top: 9vw;
+  margin-top: 14vw;
   width: 13vw;
   position: fixed;
 
