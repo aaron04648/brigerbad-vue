@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Entree from '../components/EntreePrice.vue'
-import EntreeSpa from   '../components/EntreeSpa.vue'
-import OnlineTicketText from   '../components/OnlineTicketText.vue'
+import ScreenOne from '../components/ScreenOne.vue'
+import ScreenTwo from   '../components/ScreenTwo.vue'
+import ScreenThree from   '../components/ScreenThree.vue'
 import AngeboteWerbung from   '../components/AngeboteWerbung.vue'
 import BrigeniaBubble from   '../components/BrigeniaSprechblasen.vue'
 import BrigeniaVideo from   '../components/BrigeniaVideo.vue'
@@ -14,19 +14,19 @@ import test from '../components/TestVue.vue'
 
 const routes = [
   {
-    path: '/EntreeTherme',
-    name: 'EntreePrice',
-    component: Entree
+    path: '/ScreenOne',
+    name: 'ScreenOne',
+    component: ScreenOne
   },
   {
-    path: '/entreeSpa',
-    name: 'EntreeSpa',
-    component: EntreeSpa
+    path: '/ScreenTwo',
+    name: 'ScreenTwo',
+    component: ScreenTwo
   },
   {
-    path: '/Online-Ticket',
-    name: 'OnlineTicket',
-    component: OnlineTicketText
+    path: '/ScreenThree',
+    name: 'ScreenThree',
+    component: ScreenThree
   },
   {
     path: '/AngeboteWerbung',
