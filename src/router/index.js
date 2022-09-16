@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import ScreenOne from '../components/ScreenOne.vue'
 import ScreenTwo from   '../components/ScreenTwo.vue'
 import ScreenThree from   '../components/ScreenThree.vue'
-import AngeboteWerbung from   '../components/AngeboteWerbung.vue'
+import ScreenFour from   '../components/ScreenFour.vue'
 import BrigeniaBubble from   '../components/BrigeniaSprechblasen.vue'
 import BrigeniaVideo from   '../components/BrigeniaVideo.vue'
 import editor from   '../components/VueEditor.vue'
@@ -29,9 +29,9 @@ const routes = [
     component: ScreenThree
   },
   {
-    path: '/AngeboteWerbung',
-    name: 'AngeboteWerbung',
-    component: AngeboteWerbung
+    path: '/ScreenFour',
+    name: 'ScreenFour',
+    component: ScreenFour
   },
   {
     path: '/BrigeniaBubble',
