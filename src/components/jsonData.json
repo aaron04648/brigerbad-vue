@@ -3,19 +3,22 @@
         "ID":1,
         "type":"Eintritt",
         "price_3h":"21 CHF",
-        "price_day":"27 CHF"
+        "price_day":"27 CHF",
+        "price_3h_2":"25 CHF"
     },
     {
         "ID":2,
-        "type":"AHV/IV/Student",
+        "type":"AHV",
         "price_3h":"18 CHF",
-        "price_day":"24 CHF"
+        "price_day":"24 CHF",
+        "price_3h_2":"25 CHF"
     },
     {
         "ID":3,
         "type":"Kinder 6-15",
         "price_3h":"15 CHF",
-        "price_day":"20 CHF"
+        "price_day":"20 CHF",
+        "price_3h_2":"25 CHF"
     }  
     
 ]
