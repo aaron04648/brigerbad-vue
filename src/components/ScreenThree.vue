@@ -10,7 +10,11 @@
 </div>
        
 <div class="div-main" v-for="item in data" :key="item.id">
-    <p id="title"> {{item.text}}</p>
+    <div id=text>
+           <p id="title"> {{item.Title}}</p>
+    <p id="description"> {{item.description}}</p>
+    </div>
+ 
     <div class="arrows">
         <img class="galleryImg1" src="../assets/pfeile.svg">
         <img class="galleryImg2" src="../assets/pfeile.svg">
@@ -38,7 +42,13 @@ data(){
 </script>
 
 <style scoped>
-
+#description{
+    margin: 0;
+}
+#text{
+    float: left;
+    padding: 0;
+}
 .mainmain{
   position: fixed;
   width: 100vw;
@@ -50,10 +60,7 @@ data(){
   position: fixed;
   width: 100vw;
   height: 100vh;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+
   overflow: hidden;
   margin: 0;
   opacity: 0;
@@ -64,10 +71,7 @@ data(){
   position: fixed;
   width: 100vw;
   height: 100vh;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+
   overflow: hidden;
   margin: 0;
   opacity: 0;
@@ -75,9 +79,13 @@ data(){
 }
 
 .div-main {
+    padding: 3vw;
+    padding-left: 8vw;
+    padding-bottom: 0vw;
     width: 80vw;
+    height: 24vw;
     position: fixed;
-    margin-top:10vw ;
+    margin-top:25vw ;
     margin-left: 3.6458333333333335vw;
     margin-right: 3.6458333333333335vw ;
     font-size: 4.2vw;
@@ -205,35 +213,41 @@ data(){
     }
 }
 .galleryImg1{
-    width: 10vw;
-    top:15vw ;
+    width: 13vw;
+ margin-top: 4vw;
     position: fixed;
     
     
     animation: zoomin1 2s infinite ;
 }
 .galleryImg2{
-    top:20vw ;
-    width: 10vw;
+     margin-top: 8vw;
+    width: 13vw;
     position: fixed;
     
     
     animation: zoomin2 2s infinite ;
 }
 .galleryImg3{
-    top:25vw ;
-    width: 10vw;
+   margin-top: 12vw;
+    width: 13vw;
+   
     position: fixed;
     
     
     animation: zoomin3 2s infinite ;
 }
 .arrows{
+    
     margin-left:65vw ;
-    margin-bottom:20vw ;
+
 }
 #title{
     margin-top: 0;
+    margin: 0;
+    margin-bottom: 0;
+      font-weight: bolder;
+  font-family: TTNormsBold;
 }
 
 </style>
