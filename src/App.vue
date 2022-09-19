@@ -13,7 +13,7 @@ export default {
     };
   },
   created: function () {
-    Console.log("Starting connection");
+    console.log("Starting connection");
     this.connection = new WebSocket("wss://echo.websocket.org");
 
     this.connection.onopen = function (event) {
