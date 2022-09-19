@@ -3,6 +3,10 @@
     <div class="Main1">
         <img class="galleryImg" src="../assets/restaurant.png">
     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> FabioBranch
     <div id=allinall1 v-for="item in data" :key="item.id">
         <img id="imgRestaurant1" src="../assets/icon-restaurant.svg" alt="">
         <div id="content1">
@@ -11,6 +15,7 @@
             <p class="AngeboteWerbung1">{{item.Werbung}}</p>
         </div>
     </div>
+<<<<<<< HEAD
     <div class="Main2">
         <img class="galleryImg2" src="../assets/schwimmbad.png">
     </div>
@@ -22,20 +27,51 @@
             <p class="AngeboteWerbung2">{{item.Werbung}}</p>
         </div>
     </div>
+=======
+
+    <div class="Main2">
+        <img class="galleryImg2" src="../assets/schwimmbad.png">
+    </div>
+
+    <div id=allinall2 v-for="item in data" :key="item.id">
+        <img id="imgRestaurant2" src="../assets/icon-therme.svg" alt="">
+        <div id="content2">
+            <h1 id="titletext2">{{item.title2}}</h1>
+            <p class="AngeboteWerbung2">{{item.Angebot2}}</p>
+            <p class="AngeboteWerbung2">{{item.Werbung2}}</p>
+        </div>
+    </div>
+
+>>>>>>> FabioBranch
     <div id="layout3">
         <div class="Main3">
             <img class="galleryImg3" src="../assets/spa.png">
         </div>
+<<<<<<< HEAD
         <div id=allinall3 v-for="item in data" :key="item.id">
             <img id="imgRestaurant3" src="../assets/icon-spa.svg" alt="">
             <div id="content3">
                 <h1 id="titletext3">{{item.title}}</h1>
                 <p class="AngeboteWerbung3">{{item.Angebot}}</p>
                 <p class="AngeboteWerbung3">{{item.Werbung}}</p>
+=======
+
+        <div id=allinall3 v-for="item in data" :key="item.id">
+            <img id="imgRestaurant3" src="../assets/icon-spa.svg" alt="">
+            <div id="content3">
+                <h1 id="titletext3">{{item.title3}}</h1>
+                <p class="AngeboteWerbung3">{{item.Angebot3}}</p>
+                <p class="AngeboteWerbung3">{{item.Werbung3}}</p>
+>>>>>>> FabioBranch
             </div>
         </div>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> FabioBranch
 </template>
 <script>
 import jsonData from './/AngeboteWerbung.json'
@@ -48,12 +84,20 @@ data(){
 }
 </script>
 <style>
+<<<<<<< HEAD
+=======
+
+>>>>>>> FabioBranch
 .mainmain{
     background-color: black;
     width: 100vw;
     height: 100vh;
     z-index: -1;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> FabioBranch
 #allinall1 {
   position: fixed;
   height: 48.51851851851852vh;
@@ -68,12 +112,22 @@ data(){
   background-color: rgb(73, 135, 127, 0.7);
   animation: contentslider1 30s infinite ;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> FabioBranch
 #content1{
     float: left;
     margin-top: 5vh;
     height: 40vh;
     width: 55vw;
+<<<<<<< HEAD
 }
+=======
+    
+}
+
+>>>>>>> FabioBranch
 #imgRestaurant1{
     width: 25.666666666666664vw;
     height: auto;
@@ -82,6 +136,7 @@ data(){
     float: left;
     padding-right: 6vw;
 }
+<<<<<<< HEAD
 #titletext1{
     font-size: 3vw;
     margin: 0;
@@ -90,6 +145,18 @@ data(){
     font-size: 3vw;
     margin: 0;
 }
+=======
+
+#titletext1{
+    font-size: 3vw;
+    margin: 0;
+}
+.AngeboteWerbung1{
+    font-size: 3vw;
+    margin: 0;
+}
+
+>>>>>>> FabioBranch
 .Main1{
   position: fixed;
   width: 100vw;
@@ -104,6 +171,10 @@ data(){
   opacity: 0;
   animation: layouthidden1 30s infinite ;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> FabioBranch
 #allinall2 {
   position: fixed;
   height: 48.51851851851852vh;
@@ -118,12 +189,20 @@ data(){
   background-color: rgb(83, 127, 163, 0.7);
   animation: contentslider2 30s infinite ;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> FabioBranch
 #content2{
     float: left;
     margin-top: 5vh;
     height: 40vh;
     width: 55vw;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> FabioBranch
 #imgRestaurant2{
     width: 25.666666666666664vw;
     height: auto;
@@ -132,6 +211,10 @@ data(){
     float: left;
     padding-right: 6vw;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> FabioBranch
 #titletext2{
     font-size: 3vw;
     margin: 0;
@@ -154,6 +237,10 @@ data(){
   opacity: 0;
   animation: layouthidden2 30s infinite ;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> FabioBranch
 #allinall3 {
   position: fixed;
   height: 48.51851851851852vh;
@@ -168,12 +255,20 @@ data(){
   background-color: rgb(171, 110, 100, 0.7);
   animation: contentslider3 30s infinite ;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> FabioBranch
 #content3{
     float: left;
     margin-top: 5vh;
     height: 40vh;
     width: 55vw;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> FabioBranch
 #imgRestaurant3{
     width: 21.666666666666664vw;
     height: auto;
@@ -182,6 +277,10 @@ data(){
     float: left;
     padding-right: 8vw;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> FabioBranch
 #titletext3{
     font-size: 3vw;
     margin: 0;
@@ -204,6 +303,10 @@ data(){
   opacity: 0;
   animation: layouthidden3 30s infinite ;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> FabioBranch
 @keyframes layouthidden1 {
   0% {
     opacity: 0;
@@ -224,6 +327,10 @@ data(){
     opacity: 0;
   }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> FabioBranch
 @keyframes contentslider1 {
   0% {
     top: 100vh;
@@ -244,6 +351,10 @@ data(){
     top: 100vh;
   }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> FabioBranch
 @keyframes layouthidden2 {
   0% {
     opacity: 0;
@@ -273,6 +384,10 @@ data(){
     opacity: 0;
   }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> FabioBranch
 @keyframes contentslider2 {
     0% {
     top: 100vh;
@@ -302,6 +417,10 @@ data(){
     top: 100vh;
   }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> FabioBranch
 @keyframes layouthidden3 {
   0% {
     opacity: 0;
@@ -330,6 +449,39 @@ data(){
   100% {
     opacity: 0;
   }
+<<<<<<< HEAD
+=======
+}
+
+@keyframes contentslider3 {
+  0% {
+    top: 100vh;
+  }
+  5% {
+    top: 100vh;
+  }
+  28% {
+    top: 100vh;
+  }
+  33% {
+    top: 100vh;
+  }
+  61% {
+    top: 100vh;
+  }
+  66% {
+    top: 100vh;
+  }
+  71% {
+    top: 0vh;
+  }
+  95% {
+    top: 0vh;
+  }
+  100% {
+    top: 100vh;
+  }
+>>>>>>> FabioBranch
 }
 @keyframes contentslider3 {
   0% {
