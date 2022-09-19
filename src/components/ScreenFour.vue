@@ -21,9 +21,9 @@
     <div id=allinall2 v-for="item in data" :key="item.id">
         <img id="imgRestaurant2" src="../assets/icon-therme.svg" alt="">
         <div id="content2">
-            <h1 id="titletext2">{{item.title}}</h1>
-            <p class="AngeboteWerbung2">{{item.Angebot}}</p>
-            <p class="AngeboteWerbung2">{{item.Werbung}}</p>
+            <h1 id="titletext2">{{item.title2}}</h1>
+            <p class="AngeboteWerbung2">{{item.Angebot2}}</p>
+            <p class="AngeboteWerbung2">{{item.Werbung2}}</p>
         </div>
     </div>
 
@@ -35,9 +35,9 @@
         <div id=allinall3 v-for="item in data" :key="item.id">
             <img id="imgRestaurant3" src="../assets/icon-spa.svg" alt="">
             <div id="content3">
-                <h1 id="titletext3">{{item.title}}</h1>
-                <p class="AngeboteWerbung3">{{item.Angebot}}</p>
-                <p class="AngeboteWerbung3">{{item.Werbung}}</p>
+                <h1 id="titletext3">{{item.title3}}</h1>
+                <p class="AngeboteWerbung3">{{item.Angebot3}}</p>
+                <p class="AngeboteWerbung3">{{item.Werbung3}}</p>
             </div>
         </div>
     </div>
