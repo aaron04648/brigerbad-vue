@@ -11,6 +11,20 @@ export default {
       test: "",
       connection: null,
     };
+  },mounted(){
+{
+  if( window.localStorage )
+  {
+    if( !localStorage.getItem('firstLoad') )
+    {
+      localStorage['firstLoad'] = true;
+      window.location.reload();
+    }  
+    else
+      localStorage.removeItem('firstLoad');
+  }
+}
+
   },
   created: function () {
     console.log("Starting connection");

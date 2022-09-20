@@ -83,7 +83,7 @@ data(){
     padding-left: 8vw;
     padding-bottom: 0vw;
     width: 80vw;
-    height: 24vw;
+    height: 25vw;
     position: fixed;
     margin-top:25vw ;
     margin-left: 3.6458333333333335vw;
