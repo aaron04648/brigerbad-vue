@@ -39,13 +39,13 @@ export default {
  
   data() {
     return {
-      data:[]
+      data:undefined
     };
   }, mounted() {
    console.log("mounted")
 
 onSnapshot(collection(db, "Therme"), (querySnapshot) => {
-
+const data2 = []
   querySnapshot.forEach((doc) => {
   const data={
   id:doc.id,
@@ -53,9 +53,10 @@ onSnapshot(collection(db, "Therme"), (querySnapshot) => {
   price_3H:doc.data().price_3H,
   price_day:doc.data().price_day,
 }
- this.data.push(data) 
+data2.push(data) 
   });
- 
+  console.log(data2)
+ this.data = data2
   console.log()
 
 

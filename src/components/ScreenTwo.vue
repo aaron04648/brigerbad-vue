@@ -18,7 +18,7 @@
   <tr v-for="item in data" :key="item.id">
     <td class="td-1">{{item.type}}</td>
     <td class="td-2">{{item.price_3h}}</td>
-    <td class="td-3">{{item.price_day}}</td>
+    <td class="td-3">{{item.price_24h}}</td>
   </tr>
 </table>
 
@@ -31,13 +31,35 @@
 </template>
 
 <script>
-import jsonData from './/jsonDataSpa.json'
+
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from '../service/db'
 export default {
   data(){
     return{
-      data: jsonData
+      data: undefined
     }
-  },mounted(){}
+  }, mounted() {
+   console.log("mounted")
+
+onSnapshot(collection(db, "Spa"), (querySnapshot) => {
+const data2 = []
+  querySnapshot.forEach((doc) => {
+  const data={
+  id:doc.id,
+  type:doc.data().type,
+  price_3h:doc.data().price_3h,
+  price_24h:doc.data().price_24h,
+}
+data2.push(data) 
+  });
+  console.log(data2)
+ this.data = data2
+  console.log()
+
+
+});
+  },
 }
 </script>
 
