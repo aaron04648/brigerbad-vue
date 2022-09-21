@@ -138,19 +138,53 @@ export default {
       var value = select.options[select.selectedIndex].text;
      for (var i = 0; i < this.data.length; i++) {
     
-const washingtonRef = doc(db, "Therme",this.data[i].id );
+
 
 // Set the "capital" field of the city 'DC'
 if(value== "EntreeTherme"){
+const washingtonRef = doc(db, "Therme",this.data[i].id );
+
   await updateDoc(washingtonRef, {
   price_3H: this.data[i].price_3h
 });
 }
-if(value== "EntreeTherme"){
+if(value== "EntreeSpa"){
+const washingtonRef = doc(db, "Spa",this.data[i].id );
+
   await updateDoc(washingtonRef, {
-  price_3H: this.data[i].price_3h
+  price_3h: this.data[i].price_3h,
+  price_24h: this.data[i].price_24h,
+  type: this.data[i].type
 });
 }
+if(value== "EntreeSpa"){
+const washingtonRef = doc(db, "Spa",this.data[i].id );
+
+  await updateDoc(washingtonRef, {
+  price_3h: this.data[i].price_3h,
+  price_24h: this.data[i].price_24h,
+  type: this.data[i].type
+});
+}if(value== "Onlineticket"){
+const washingtonRef = doc(db, "Online-ticket",this.data[i].id );
+
+  await updateDoc(washingtonRef, {
+  description: this.data[i].description,
+  title: this.data[i].title,
+ 
+});
+}if(value== "AngeboteWerbung"){
+const washingtonRef = doc(db, "AngeboteWerbung",this.data[i].id );
+
+  await updateDoc(washingtonRef, {
+  Angebote: this.data[i].Angebote,
+  Werbung: this.data[i].Werbung,
+  title: this.data[i].title,
+ 
+});
+}
+
+
 
      }
   },
