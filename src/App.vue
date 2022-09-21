@@ -1,29 +1,21 @@
 <template>
-  <router-view />
+  <router-view 
+  />
+
 </template>
 
 <script>
+
 export default {
   name: "App",
   components: {},
   data() {
     return {
-      test: "",
+      test: [],
       connection: null,
     };
-  },
-  created: function () {
-    console.log("Starting connection");
-    this.connection = new WebSocket("wss://echo.websocket.org");
+  }, 
 
-    this.connection.onopen = function (event) {
-      console.log(event);
-      console.log("Successfully connect to the echo Websocket Server");
-    };
-    this.connection.onmessage = function (event) {
-      console.log(event);
-    };
-  },
 };
 </script>
 

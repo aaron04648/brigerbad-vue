@@ -13,10 +13,12 @@
           <option class="options" value="">{{ this.Option5 }}</option>
         </select>
         <br />
-    <JsonEditorVue class="editor" v-model="data"/>
+        
+        <h1 v-for="item in Therme" :key="item.id ">Firebase:{{item}}</h1>
+    <!--<JsonEditorVue class="editor" v-model="data"/>
     <button @click.prevent="saveFile()">save</button>
   write with test{{test}}
-  <p>write with data {{data}}</p>
+  <p>write with data {{data}}</p>-->
         <br />
       
       </div>
@@ -27,16 +29,18 @@
 
 <script>
 
+
+
 import BrigeniaSprechblasen from ".//BrigeniaSprechblasen.json";
 import Onlineticket from ".//Online-ticket.json";
 import Spa from ".//jsonDataSpa.json";
-import Therme from ".//jsonData.json";
+//import Therme from ".//jsonData.json";
 import AngeboteWerbung from ".//AngeboteWerbung.json";
-import JsonEditorVue from 'json-editor-vue3'
+//import JsonEditorVue from 'json-editor-vue3'
 
 export default {
   components: {
-    JsonEditorVue
+   // JsonEditorVue
   },watch:{
     
   },
@@ -50,7 +54,7 @@ export default {
       OnlineticketID: "",
       Spa: Spa,
       SpaID: "",
-      Therme: Therme,
+      Therme: [],
       ThermeID: "",
       Option1: "EntreeTherme",
       Option2: "EntreeSpa",
@@ -102,9 +106,7 @@ export default {
    console.log(id)
     }
   },
-  mounted() {
-    this.test = localStorage.getItem("storedData")
-  },
+
 };
 </script>
 
