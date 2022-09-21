@@ -148,6 +148,8 @@ export default {
 
           await updateDoc(washingtonRef, {
             price_3H: this.data[i].price_3h,
+            type: this.data[i].type,
+            price_day: this.data[i].price_24h,
           });
         }
         if (value == "EntreeSpa") {
@@ -159,15 +161,7 @@ export default {
             type: this.data[i].type,
           });
         }
-        if (value == "EntreeSpa") {
-          const washingtonRef = doc(db, "Spa", this.data[i].id);
-
-          await updateDoc(washingtonRef, {
-            price_3h: this.data[i].price_3h,
-            price_24h: this.data[i].price_24h,
-            type: this.data[i].type,
-          });
-        }
+  
         if (value == "Onlineticket") {
           const washingtonRef = doc(db, "Online-ticket", this.data[i].id);
 
