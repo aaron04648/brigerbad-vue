@@ -11,6 +11,7 @@
     </div>
     <div class="container">
       <div class="box">
+
         <table class="content">
           <thead>
             <tr>
@@ -35,6 +36,7 @@
             </tr>
           </tbody>
         </table>
+
       </div>
 
       <div class="box">
@@ -52,14 +54,14 @@
         </div>
       </div>
 
-      <div class="rightbox" v-for="item in Event" :key="item.id">
+  <div class="rightbox" v-for="item in Event" :key="item.id">
         <div class="box">
-          <h2>Events</h2>
-          <h3>{{ item.Events }}</h3>
+          <h2>{{ item.Aktion }}</h2>
+          <h3>{{ item.d1 }}</h3>
         </div>
         <div class="box">
-          <h2>Aktionen</h2>
-          <h3>{{ item.Aktionen }}</h3>
+          <h2>{{ item.Event }}</h2>
+          <h3>{{ item.d2 }}</h3>
         </div>
       </div>
     </div>
@@ -67,10 +69,12 @@
 </template>
 
 <script>
-import Clockevent from ".//BrigerbadClockevent.json";
+
 import ClockProgramm from ".//BrigerbadProgramm.json";
 import Piechart from "./ChildPie.vue";
 import Piechartunten from "./PieUnten.vue";
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from "../service/db";
 export default {
  
 components:{
@@ -80,7 +84,7 @@ Piechartunten
   data() {
     return {
       WhichID: undefined,
-      Event: Clockevent,
+      Event: undefined,
       Programm: ClockProgramm,
       Intervalltest: "Loading..",
       timenow: "",
@@ -159,6 +163,27 @@ Piechartunten
    
     
     
+  },mounted() {
+   console.log("mounted")
+
+onSnapshot(collection(db, "Clock Events"), (querySnapshot) => {
+const data2 = []
+  querySnapshot.forEach((doc) => {
+  const data={
+  id:doc.id,
+  Aktion:doc.data().Aktion,
+  Event:doc.data().Event,
+  d1:doc.data().d1,
+  d2:doc.data().d2,
+}
+data2.push(data) 
+  });
+  console.log(data2)
+ this.Event = data2
+  console.log()
+
+
+});
   },
   computed() {
   

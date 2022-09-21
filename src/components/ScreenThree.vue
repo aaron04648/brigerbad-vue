@@ -31,13 +31,33 @@
 </template>
 
 <script >
-import jsonData from './/Online-ticket.json'
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from '../service/db'
 export default {
 data(){
         return{
-            data: jsonData
+            data:undefined
         }
-    }
+    }, mounted() {
+   console.log("mounted")
+
+onSnapshot(collection(db, "Online-ticket"), (querySnapshot) => {
+const data2 = []
+  querySnapshot.forEach((doc) => {
+  const data={
+  id:doc.id,
+  Title:doc.data().title,
+  description:doc.data().description
+}
+data2.push(data) 
+  });
+  console.log(data2)
+ this.data = data2
+  console.log()
+
+
+});
+  },
 }
 </script>
 

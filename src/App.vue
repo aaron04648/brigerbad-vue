@@ -1,43 +1,21 @@
 <template>
-  <router-view />
+  <router-view 
+  />
+
 </template>
 
 <script>
+
 export default {
   name: "App",
   components: {},
   data() {
     return {
-      test: "",
+      test: [],
       connection: null,
     };
-  },mounted(){
-{
-  if( window.localStorage )
-  {
-    if( !localStorage.getItem('firstLoad') )
-    {
-      localStorage['firstLoad'] = true;
-      window.location.reload();
-    }  
-    else
-      localStorage.removeItem('firstLoad');
-  }
-}
+  }, 
 
-  },
-  created: function () {
-    console.log("Starting connection");
-    this.connection = new WebSocket("wss://echo.websocket.org");
-
-    this.connection.onopen = function (event) {
-      console.log(event);
-      console.log("Successfully connect to the echo Websocket Server");
-    };
-    this.connection.onmessage = function (event) {
-      console.log(event);
-    };
-  },
 };
 </script>
 

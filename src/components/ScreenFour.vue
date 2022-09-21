@@ -38,13 +38,34 @@
 </div>
 </template>
 <script>
-import jsonData from './/AngeboteWerbung.json'
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from '../service/db'
 export default {
 data(){
         return{
-            data: jsonData
+            data: undefined
         }
-    }
+    }, mounted() {
+   console.log("mounted")
+
+onSnapshot(collection(db, "AngeboteWerbung"), (querySnapshot) => {
+const data2 = []
+  querySnapshot.forEach((doc) => {
+  const data={
+  id:doc.id,
+  Angebot:doc.data().Angebote,
+  Werbung:doc.data().Werbung,
+  title:doc.data().title,
+}
+data2.push(data) 
+  });
+  console.log(data2)
+ this.data = data2
+  console.log()
+
+
+});
+  },
 }
 </script>
 <style>

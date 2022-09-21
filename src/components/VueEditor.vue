@@ -4,7 +4,7 @@
       <h1>JSON Edit Formular</h1>
       <p class="question">Choose which JSON File</p>
       <div class="question-answer">
-        <select name="" id="dropdownmenu1"  @change="JSONedit()">
+        <select name="" id="dropdownmenu1" @change="JSONedit()">
           <option class="options" value="">choose Jsonfile</option>
           <option class="options" value="">{{ this.Option1 }}</option>
           <option class="options" value="">{{ this.Option2 }}</option>
@@ -12,178 +12,210 @@
           <option class="options" value="">{{ this.Option4 }}</option>
           <option class="options" value="">{{ this.Option5 }}</option>
         </select>
+        <p id="info" style="display:none; margin-left:2vw;">Für wetter muss ein Stichwort 'sonne', 'bewölkt' oder 'regen' eingesetzt werden</p>
         <br />
-    <JsonEditorVue class="editor" v-model="data"/>
-    <button @click.prevent="saveFile()">save</button>
-  write with test{{test}}
-  <p>write with data {{data}}</p>
+
+        <div id="editor">
+          <JsonEditorVue class="editor" v-model="data" />
+        </div>
+
+        <button @click.prevent="updateData()">save</button>
+
         <br />
-      
       </div>
-      
     </form>
   </div>
 </template>
 
 <script>
-
-import BrigeniaSprechblasen from ".//BrigeniaSprechblasen.json";
-import Onlineticket from ".//Online-ticket.json";
-import Spa from ".//jsonDataSpa.json";
-import Therme from ".//jsonData.json";
-import AngeboteWerbung from ".//AngeboteWerbung.json";
-import JsonEditorVue from 'json-editor-vue3'
+import { doc, updateDoc } from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from "../service/db";
+import JsonEditorVue from "json-editor-vue3";
 
 export default {
   components: {
-    JsonEditorVue
-  },watch:{
-    
+    JsonEditorVue,
   },
+  watch: {},
   data() {
     return {
-      AngeboteWerbung: AngeboteWerbung,
-      AngeboteWerbungID: "",
-      Sprechblasen: BrigeniaSprechblasen,
-      SprechblaseID: "",
-      Onlineticket: Onlineticket,
-      OnlineticketID: "",
-      Spa: Spa,
-      SpaID: "",
-      Therme: Therme,
       ThermeID: "",
       Option1: "EntreeTherme",
       Option2: "EntreeSpa",
       Option3: "Onlineticket",
       Option4: "AngeboteWerbung",
       Option5: "Sprechblase",
-    
+
       OptionID: "",
       preview: "",
-      inputvalue:"",
-      data:"",
-      test:""
-    }
+      inputvalue: "",
+      data: undefined,
+      test: "",
+    };
   },
+
   methods: {
-    JSONedit(){
+    JSONedit() {
       var select = document.getElementById("dropdownmenu1");
       var value = select.options[select.selectedIndex].text;
 
-      if(value == "EntreeSpa"){
-        this.data = this.Spa
-      
+      if (value == "EntreeSpa") {
+        onSnapshot(collection(db, "Spa"), (querySnapshot) => {
+          const data2 = [];
+          querySnapshot.forEach((doc) => {
+            const data = {
+              id: doc.id,
+              type: doc.data().type,
+              price_3h: doc.data().price_3h,
+              price_24h: doc.data().price_24h,
+            };
+            data2.push(data);
+          });
+          this.data = data2;
+        });
       }
-      if(value == "EntreeTherme"){
-        this.data = this.Therme
-    
+      if (value == "EntreeTherme") {
+        onSnapshot(collection(db, "Therme"), (querySnapshot) => {
+          const data2 = [];
+          querySnapshot.forEach((doc) => {
+            const data = {
+              id: doc.id,
+              type: doc.data().type,
+              price_3h: doc.data().price_3H,
+              price_24h: doc.data().price_day,
+            };
+            data2.push(data);
+          });
+          this.data = data2;
+        });
       }
-      if(value == "Onlineticket"){
-        this.data = this.Onlineticket
-        
+      if (value == "Onlineticket") {
+        onSnapshot(collection(db, "Online-ticket"), (querySnapshot) => {
+          const data2 = [];
+          querySnapshot.forEach((doc) => {
+            const data = {
+              id: doc.id,
+              description: doc.data().description,
+              title: doc.data().title,
+            };
+            data2.push(data);
+          });
+          this.data = data2;
+        });
       }
-      if(value == "AngeboteWerbung"){
-        this.data = this.AngeboteWerbung
-      
+      if (value == "AngeboteWerbung") {
+        onSnapshot(collection(db, "AngeboteWerbung"), (querySnapshot) => {
+          const data2 = [];
+          querySnapshot.forEach((doc) => {
+            const data = {
+              id: doc.id,
+              Angebote: doc.data().Angebote,
+              Werbung: doc.data().Werbung,
+              title: doc.data().title,
+            };
+            data2.push(data);
+          });
+          this.data = data2;
+        });
       }
-      if(value == "Sprechblase"){
-        this.data = this.Sprechblasen
-      
+      if (value == "Sprechblase") {
+        document.getElementById("info").style.display = "block"
+        onSnapshot(collection(db, "Sprechblase"), (querySnapshot) => {
+          const data2 = [];
+          querySnapshot.forEach((doc) => {
+            const data = {
+              id: doc.id,
+              Description: doc.data().Description,
+              WetterText: doc.data().WetterText,
+              wetter: doc.data().wetter,
+            };
+            data2.push(data);
+          });
+          this.data = data2;
+        });
+      }else{
+         document.getElementById("info").style.display = "none"
       }
-    
-    },saveFile(){
-      console.log(this.data)
-      localStorage.setItem("storedData",this.data)
-      console.log(localStorage.getItem("storedData")) 
     },
-  
-    WhereToWrite(id){
-      console.log("hallo")
-   console.log(id)
-    }
-  },
-  mounted() {
-    this.test = localStorage.getItem("storedData")
+    async updateData() {
+      var select = document.getElementById("dropdownmenu1");
+      var value = select.options[select.selectedIndex].text;
+      for (var i = 0; i < this.data.length; i++) {
+        // Set the "capital" field of the city 'DC'
+        if (value == "EntreeTherme") {
+          const washingtonRef = doc(db, "Therme", this.data[i].id);
+
+          await updateDoc(washingtonRef, {
+            price_3H: this.data[i].price_3h,
+          });
+        }
+        if (value == "EntreeSpa") {
+          const washingtonRef = doc(db, "Spa", this.data[i].id);
+
+          await updateDoc(washingtonRef, {
+            price_3h: this.data[i].price_3h,
+            price_24h: this.data[i].price_24h,
+            type: this.data[i].type,
+          });
+        }
+        if (value == "EntreeSpa") {
+          const washingtonRef = doc(db, "Spa", this.data[i].id);
+
+          await updateDoc(washingtonRef, {
+            price_3h: this.data[i].price_3h,
+            price_24h: this.data[i].price_24h,
+            type: this.data[i].type,
+          });
+        }
+        if (value == "Onlineticket") {
+          const washingtonRef = doc(db, "Online-ticket", this.data[i].id);
+
+          await updateDoc(washingtonRef, {
+            description: this.data[i].description,
+            title: this.data[i].title,
+          });
+        }
+        if (value == "AngeboteWerbung") {
+          const washingtonRef = doc(db, "AngeboteWerbung", this.data[i].id);
+
+          await updateDoc(washingtonRef, {
+            Angebote: this.data[i].Angebote,
+            Werbung: this.data[i].Werbung,
+            title: this.data[i].title,
+          });
+        }
+        if (value == "Sprechblase") {
+          
+          const washingtonRef = doc(db, "Sprechblase", this.data[i].id);
+          if(this.data[i].wetter == "sonne" || this.data[i].wetter == "bewölkt" ||this.data[i].wetter == "regen" ){
+            await updateDoc(washingtonRef, {
+            Description: this.data[i].Description,
+            WetterText: this.data[i].WetterText,
+            wetter: this.data[i].wetter,
+          });
+          }else{window.alert("Für wetter muss ein Stichwort 'sonne', 'bewölkt' oder 'regen' eingesetzt werden")}
+         
+        }
+      }
+   
+    },
   },
 };
 </script>
 
 <style  scoped>
-#previewJSON {
-  background-color: white;
-  display: none;
-  border: solid black;
-  margin: 1vw;
+#dropdownmenu1 {
+  margin: 2vw;
 }
-h1 {
-  font-weight: 400;
-}
-.testbox {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: inherit;
-  padding: 3px;
-}
-form {
-  width: 100%;
-  padding: 20px;
 
-  box-shadow: 0 2px 5px #ccc;
-}
-input {
-  width: calc(100% - 10px);
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  vertical-align: middle;
-}
-input:hover,
-textarea:hover {
-  outline: none;
-  border: 1px solid #095484;
-}
-th,
-td {
-  width: 28%;
-  padding: 15px 0;
-
-  text-align: center;
-  vertical-align: unset;
-  line-height: 18px;
-  font-weight: 400;
-  word-break: break-all;
-}
-.first-col {
-  width: 16%;
-  text-align: left;
-}
-textarea:hover {
-  outline: none;
-  border: 1px solid #1c87c9;
-}
-table {
-  width: 100%;
-}
-textarea {
-  width: calc(100% - 6px);
-}
-.question {
-  padding: 15px 0 5px;
-  color: grey;
-}
-.question-answer label {
-  display: block;
-  padding: 0 20px 10px 0;
-}
-.question-answer input {
-  width: auto;
-}
-.btn-block {
-  margin-top: 20px;
-  text-align: center;
+#editor {
+  margin: 2vw;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 button {
+  margin: 2vw;
   width: 150px;
   padding: 10px;
   border: none;
@@ -197,19 +229,5 @@ button {
 }
 button:hover {
   background-color: #0666a3;
-}
-@media (min-width: 568px) {
-  th,
-  td {
-    word-break: keep-all;
-  }
-}
-#Dropdown {
-  border: none;
-  border-radius: 00.5vw;
-  box-shadow: 0.1vw 0.1vw 0.1vw grey;
-  background: whitesmoke;
-  width: 5vw;
-  height: auto;
 }
 </style>

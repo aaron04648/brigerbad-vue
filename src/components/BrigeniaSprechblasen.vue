@@ -2,144 +2,178 @@
   <h1 id="title">Brigenia-Talk</h1>
   <img id="animation" src="../assets/Projekt_Brigerbad.jpg" alt="" />
   <div v-for="item in data" :key="item.id">
-    <button @click="Zustandwetter()">piolkß</button>
-    <div id="bubble1">
-      {{ item.textblaseoben
-      }}<span style="font-size: 200%; float: right; overflow-wrap: break-word"
-        >🦆</span
-      >
-    </div>
+    
+ 
+   <div id="sprechblase1">{{item.Description}} 🦆
+   </div>
 
-    <div id="bubble2">
-      {{ item.textunten_Zeile_1 }} <br />
-      <span style="font-size: 4vw; float: right; overflow-wrap: break-word">{{
-        this.AnzeigeWetter
-      }}</span>
-    </div>
-  </div>
+   <div id="sprechblase2">
+    {{item.WetterText}} <span id="wetter">{{this.AnzeigeWetter}}</span></div>
 
-  <embed src="" type="" />
+
+   </div>
+   
+
 </template>
 
 <script>
-import jsonData from ".//BrigeniaSprechblasen.json";
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from '../service/db'
+
 export default {
   data() {
     return {
-      data: jsonData,
+      data: undefined,
 
       Zustand: "",
       AnzeigeWetter: "☀️",
     };
-  },
-  methods: {
-    Zustandwetter: function () {
-      this.data.forEach((element) => {
-        console.log(element.wetter);
+  },  
+  mounted(){
+
+
+onSnapshot(collection(db, "Sprechblase"), (querySnapshot) => {
+const data2 = []
+  querySnapshot.forEach((doc) => {
+  const data={
+  id:doc.id,
+  Description:doc.data().Description,
+  WetterText:doc.data().WetterText,
+  wetter:doc.data().wetter,
+}
+data2.push(data) 
+  });
+
+ this.data = data2
+
+
+  this.data.forEach((element) => {
+   
         let test = String(element.wetter);
         if (test == "sonne") {
           this.AnzeigeWetter = "☀️";
-          element.textunten_Zeile_1 = "es scheint die Sonne";
+          element.WetterText = "Das Wetter morgen wird wieder Toll - es scheint die Sonne";
         } else if (test == "regen") {
-          element.textunten_Zeile_1 = "es regnet";
+          element.WetterText = "Das Wetter morgen wird nicht so Toll - es regnet";
           this.AnzeigeWetter = "🌧";
         } else if (test == "bewölkt") {
-          element.textunten_Zeile_1 = "Es ist bewölkt";
+          element.WetterText = "Das Wetter morgen wird solala Toll - es ist bewölkt";
           this.AnzeigeWetter = "🌤";
         }
       });
-    },
+});
+
+this.Zustandwetter()
   },
-  created() {
-    this.Zustandwetter();
+methods: {
+    Zustandwetter: function () {
+
+    
+    },
   },
 };
 </script>
-
 <style scoped>
-body {
+#wetter{
+  margin-left: 15vw;
+}
+#title{
   margin: 0;
-  max-width: 100%;
-  max-height: 100%;
 }
-h1 {
-  font-size: 90px;
-  position: relative;
-  left: 3%;
-}
-#bubble1 {
-  text-align: left;
-  overflow-wrap: break-word;
-  margin-top: 2%;
-  margin-left: 50%;
-  position: relative;
-  background: white;
-  color: #000000;
-  font-family: Times New Roman;
-  font-size: 30px;
-  line-height: 62px;
+#animation{
 
-  width: 43%;
-  height: 3%;
-  border-radius: 10px;
-  padding: 2vw;
-  margin-right: 5%;
+  margin-top: 10vw;
+  float: left;
+  width: 45vw;
+  height: auto;
 }
-#bubble1:after {
-  content: "";
-  position: absolute;
-  display: block;
-  width: 0;
-  z-index: 1;
-  border-style: solid;
-  border-width: 30px 40px 0 0;
-  border-color: white transparent transparent transparent;
-  bottom: -30px;
-  left: 15%;
-  margin-left: -20px;
+#sprechblase1 {
+  line-height: 3vw;
+  width:35vw;
+    word-wrap:break-word;
+margin-left: 50vw;
+font-size: 2vw;
+position: absolute;
+padding-top: 1vw;
+padding-bottom:4vw;
+padding-left:1vw;
+padding-right:4vw;
+border: 4px solid #2651A6;
+margin-right:100vw;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 1vw;
+background: #fff;
+ -webkit-animation: slide 0.5s forwards;
+    -webkit-animation-delay: 2s;
+    animation: slide 0.5s forwards;
+    animation-delay: 2s;
 }
-#bubble2 {
-  padding: 2vw;
-  overflow-wrap: break-word;
-  margin-top: 2%;
-  margin-left: 58%;
-  position: relative;
-  background: White;
-  color: #000000;
-  font-family: Times New Roman;
-  font-size: 30px;
-  line-height: 62px;
 
-  width: 35%;
-  height: auto;
-  border-radius: 10px;
-  padding-bottom: 1%;
-  padding-top: 1%;
+@-webkit-keyframes slide {
+    100% { left: 0; }
 }
-#bubble2:after {
-  content: "";
-  position: absolute;
-  display: block;
-  width: 0;
-  z-index: 1;
-  border-style: solid;
-  border-width: 30px 40px 0 0;
-  border-color: White transparent transparent transparent;
-  bottom: -30px;
-  left: 15%;
-  margin-left: -20px;
+
+@keyframes slide {
+    100% { left: 0; }
 }
-.ProjektBrigerbad {
-  margin-top: 9.6%;
-  float: left;
-  position: relative;
-  left: 4%;
-}
-#animation {
-  margin-left: 0;
-  margin-top: 1vw;
-  width: 20vw;
-  height: auto;
-  float: left;
-}
+
+
+#sprechblase1:before {
+content: ' ';
+position: absolute;
+width: 0;
+height: 0;
+left: 30px;
+top: 100%;
+border: 20px solid;
+border-color: #2651A6 transparent transparent #2651A6;}
+
+#sprechblase1:after {
+content: ' ';
+position: absolute;
+width: 0;
+height: 0;
+left: 34px;
+top: 100%;
+border: 15px solid;
+border-color: #ffffff transparent transparent #ffffff;}
+#sprechblase2 {
+  line-height: 3vw;
+  width:35vw;
+    word-wrap:break-word;
+margin-top: 20vw;
+margin-left: 55vw;
+font-size: 2vw;
+position: absolute;
+padding-top: 1vw;
+padding-bottom:4vw;
+padding-left:1vw;
+padding-right:4vw;
+border: 4px solid #2651A6;
+margin-right:100vw;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 1vw;
+background: #fff;}
+
+#sprechblase2:before {
+content: ' ';
+position: absolute;
+width: 0;
+height: 0;
+left: 30px;
+top: 100%;
+border: 20px solid;
+border-color: #2651A6 transparent transparent #2651A6;}
+
+#sprechblase2:after {
+content: ' ';
+position: absolute;
+width: 0;
+height: 0;
+left: 34px;
+top: 100%;
+border: 15px solid;
+border-color: #ffffff transparent transparent #ffffff;}
 </style>
