@@ -12,12 +12,13 @@
           <option class="options" value="">{{ this.Option4 }}</option>
           <option class="options" value="">{{ this.Option5 }}</option>
         </select>
+        <p id="info" style="display:none; margin-left:2vw;">Für wetter muss ein Stichwort 'sonne', 'bewölkt' oder 'regen' eingesetzt werden</p>
         <br />
 
-     <div id=editor>
-      <JsonEditorVue  class="editor" v-model="data" />
-     </div>
-        
+        <div id="editor">
+          <JsonEditorVue class="editor" v-model="data" />
+        </div>
+
         <button @click.prevent="updateData()">save</button>
 
         <br />
@@ -119,91 +120,102 @@ export default {
         });
       }
       if (value == "Sprechblase") {
-        onSnapshot(collection(db, "Spa"), (querySnapshot) => {
+        document.getElementById("info").style.display = "block"
+        onSnapshot(collection(db, "Sprechblase"), (querySnapshot) => {
           const data2 = [];
           querySnapshot.forEach((doc) => {
             const data = {
               id: doc.id,
-              type: doc.data().type,
-              price_3H: doc.data().price_3H,
-              price_day: doc.data().price_day,
+              Description: doc.data().Description,
+              WetterText: doc.data().WetterText,
+              wetter: doc.data().wetter,
             };
             data2.push(data);
           });
           this.data = data2;
         });
+      }else{
+         document.getElementById("info").style.display = "none"
       }
-    },async updateData(){
-         var select = document.getElementById("dropdownmenu1");
+    },
+    async updateData() {
+      var select = document.getElementById("dropdownmenu1");
       var value = select.options[select.selectedIndex].text;
-     for (var i = 0; i < this.data.length; i++) {
-    
+      for (var i = 0; i < this.data.length; i++) {
+        // Set the "capital" field of the city 'DC'
+        if (value == "EntreeTherme") {
+          const washingtonRef = doc(db, "Therme", this.data[i].id);
 
+          await updateDoc(washingtonRef, {
+            price_3H: this.data[i].price_3h,
+          });
+        }
+        if (value == "EntreeSpa") {
+          const washingtonRef = doc(db, "Spa", this.data[i].id);
 
-// Set the "capital" field of the city 'DC'
-if(value== "EntreeTherme"){
-const washingtonRef = doc(db, "Therme",this.data[i].id );
+          await updateDoc(washingtonRef, {
+            price_3h: this.data[i].price_3h,
+            price_24h: this.data[i].price_24h,
+            type: this.data[i].type,
+          });
+        }
+        if (value == "EntreeSpa") {
+          const washingtonRef = doc(db, "Spa", this.data[i].id);
 
-  await updateDoc(washingtonRef, {
-  price_3H: this.data[i].price_3h
-});
-}
-if(value== "EntreeSpa"){
-const washingtonRef = doc(db, "Spa",this.data[i].id );
+          await updateDoc(washingtonRef, {
+            price_3h: this.data[i].price_3h,
+            price_24h: this.data[i].price_24h,
+            type: this.data[i].type,
+          });
+        }
+        if (value == "Onlineticket") {
+          const washingtonRef = doc(db, "Online-ticket", this.data[i].id);
 
-  await updateDoc(washingtonRef, {
-  price_3h: this.data[i].price_3h,
-  price_24h: this.data[i].price_24h,
-  type: this.data[i].type
-});
-}
-if(value== "EntreeSpa"){
-const washingtonRef = doc(db, "Spa",this.data[i].id );
+          await updateDoc(washingtonRef, {
+            description: this.data[i].description,
+            title: this.data[i].title,
+          });
+        }
+        if (value == "AngeboteWerbung") {
+          const washingtonRef = doc(db, "AngeboteWerbung", this.data[i].id);
 
-  await updateDoc(washingtonRef, {
-  price_3h: this.data[i].price_3h,
-  price_24h: this.data[i].price_24h,
-  type: this.data[i].type
-});
-}if(value== "Onlineticket"){
-const washingtonRef = doc(db, "Online-ticket",this.data[i].id );
-
-  await updateDoc(washingtonRef, {
-  description: this.data[i].description,
-  title: this.data[i].title,
- 
-});
-}if(value== "AngeboteWerbung"){
-const washingtonRef = doc(db, "AngeboteWerbung",this.data[i].id );
-
-  await updateDoc(washingtonRef, {
-  Angebote: this.data[i].Angebote,
-  Werbung: this.data[i].Werbung,
-  title: this.data[i].title,
- 
-});
-}
-
-
-
-     }
+          await updateDoc(washingtonRef, {
+            Angebote: this.data[i].Angebote,
+            Werbung: this.data[i].Werbung,
+            title: this.data[i].title,
+          });
+        }
+        if (value == "Sprechblase") {
+          
+          const washingtonRef = doc(db, "Sprechblase", this.data[i].id);
+          if(this.data[i].wetter == "sonne" || this.data[i].wetter == "bewölkt" ||this.data[i].wetter == "regen" ){
+            await updateDoc(washingtonRef, {
+            Description: this.data[i].Description,
+            WetterText: this.data[i].WetterText,
+            wetter: this.data[i].wetter,
+          });
+          }else{window.alert("Für wetter muss ein Stichwort 'sonne', 'bewölkt' oder 'regen' eingesetzt werden")}
+         
+        }
+      }
+   
+    },
   },
-  }
 };
 </script>
 
 <style  scoped>
-#dropdownmenu1{
+#dropdownmenu1 {
   margin: 2vw;
 }
 
-#editor{
+#editor {
   margin: 2vw;
   margin-top: 0;
   margin-bottom: 0;
 }
 button {
-   margin: 2vw;
+  margin: 2vw;
   width: 150px;
   padding: 10px;
   border: none;
@@ -218,6 +230,4 @@ button {
 button:hover {
   background-color: #0666a3;
 }
-
-
 </style>
