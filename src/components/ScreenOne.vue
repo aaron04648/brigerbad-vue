@@ -33,7 +33,7 @@
 <script>
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from '../service/db'
-//import jsonData from ".//jsonData.json";
+
 
 export default {
  
