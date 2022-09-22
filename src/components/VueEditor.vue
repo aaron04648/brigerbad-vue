@@ -1,24 +1,4 @@
 <template>
-<<<<<<< HEAD
-  <div class="testbox">
-    <form action="/">
-      <h1>JSON Edit Formular</h1>
-      <p class="question">edit Json File</p>
-      <div class="question-answer">
-        <select name="" id="dropdownmenu1" @change="JSONedit()">
-          <option class="options" value="">{{ this.defaultOption }}</option>
-          <option class="options" value="">{{ this.Option1 }}</option>
-          <option class="options" value="">{{ this.Option2 }}</option>
-          <option class="options" value="">{{ this.Option3 }}</option>
-          <option class="options" value="">{{ this.Option4 }}</option>
-          <option class="options" value="">{{ this.Option5 }}</option>
-        </select>
-        <p id="info" style="display: none; margin-left: 2vw">
-          Für wetter muss ein Stichwort 'sonne', 'bewölkt' oder 'regen'
-          eingesetzt werden
-        </p>
-        <br />
-=======
   <ul>
     <li id="logo"><img @click=showStart() src="../assets/logo.svg" alt="" /></li>
     <li id="title">JSON Edit Formular</li>
@@ -30,7 +10,6 @@
 <div id="Start1">
   <p id=info>Was möchten Sie tun?</p>
 <div id="Start">
->>>>>>> AaronBranch
 
 <div @click="showAddData()" class="innerStart">Add Data</div>
 <div @click="showAddData()" class="innerStart">Edit Data</div>
@@ -38,21 +17,6 @@
 </div>
 </div>
 
-<<<<<<< HEAD
-        <button @click.prevent="updateData()">save</button>
-        <p class="question">add Json File</p>
-        <select name="" id="dropdownmenu2" @change="changeTemplate()">
-          <option class="options" value="">{{ this.defaultOption }}</option>
-          <option class="options" value="">{{ this.Option1 }}</option>
-          <option class="options" value="">{{ this.Option2 }}</option>
-          <option class="options" value="">{{ this.Option3 }}</option>
-          <option class="options" value="">{{ this.Option4 }}</option>
-          <option class="options" value="">{{ this.Option5 }}</option>
-        </select>
-        <input type="text" placeholder="ID eingeben" v-model="test" />
-        <JsonEditorVue class="editor" v-model="adddata" />
-        <button @click.prevent="newDoc()">add</button>
-=======
 <!-- editData-->
   <div id="editData">
     <p class="question">Edit Jsonfile</p>
@@ -70,7 +34,6 @@
         werden
       </p>
       <br />
->>>>>>> AaronBranch
 
       <div class="editor">
         <JsonEditorVue  v-model="data" />
@@ -124,65 +87,12 @@ export default {
       preview: "",
       inputvalue: "",
       data: undefined,
-<<<<<<< HEAD
-      adddata:undefined,
-=======
       adddata: undefined,
->>>>>>> AaronBranch
       test: "",
     };
   },
 
   methods: {
-<<<<<<< HEAD
-    changeTemplate(){
-            var select = document.getElementById("dropdownmenu2");
-      var value = select.options[select.selectedIndex].text;
-      if(value=="EntreeTherme"){
-        this.adddata = [
-          {
-            price_3H:"",
-            price_day:"",
-            type:""
-          }
-        ]
-      }
-      if(value=="EntreeSpa"){
-        this.adddata = [
-          {
-            price_3h:"",
-            price_24h:"",
-            type:""
-          }
-        ]
-      }
-      if(value=="Onlineticket"){
-        this.adddata = [
-          {
-            description:"",
-            title:"",
-     
-          }
-        ]
-      }
-      if(value=="AngeboteWerbung"){
-        this.adddata = [
-          {
-            Angebote:"",
-            Werbung:"",
-            title:""
-          }
-        ]
-      }
-      if(value=="Sprechblase"){
-        this.adddata = [
-          {
-            Description:"",
-            WetterText:"",
-            wetter:""
-          }
-        ]
-=======
 showEditData(){
 document.getElementById("editData").style.display= "block"
 document.getElementById("addData").style.display= "none"
@@ -246,7 +156,6 @@ document.getElementById("Start1").style.display= "block"
             wetter: "",
           },
         ];
->>>>>>> AaronBranch
       }
     },
     JSONedit() {
@@ -389,94 +298,6 @@ document.getElementById("Start1").style.display= "block"
               "Für wetter muss ein Stichwort 'sonne', 'bewölkt' oder 'regen' eingesetzt werden"
             );
           }
-<<<<<<< HEAD
-        }
-      }
-    },
-
-
-
-
-    async newDoc() {
-      var select = document.getElementById("dropdownmenu2");
-      var value = select.options[select.selectedIndex].text;
-      if (value == "EntreeTherme") {
-        if (this.test != "") {
-          if (this.adddata.length == 1) {
-            await setDoc(doc(db, "Therme", this.test), {
-              price_3H: this.adddata[0].price_3H,
-              price_day: this.adddata[0].price_day,
-              type: this.adddata[0].type,
-            });
-          } else {
-            window.alert("Bitte nur eine {} pro array brauchen");
-          }
-        } else {
-          window.alert("Bitte eine ID eingeben");
-        }
-      }
-      if (value == "EntreeSpa") {
-        if (this.test != "") {
-          if (this.adddata.length == 1) {
-            await setDoc(doc(db, "Spa", this.test), {
-              price_24h: this.adddata[0].price_3H,
-              price_3h: this.adddata[0].price_day,
-              type: this.adddata[0].type,
-            });
-          } else {
-            window.alert("Bitte nur eine {} pro array brauchen");
-          }
-        } else {
-          window.alert("Bitte eine ID eingeben");
-        }
-      }
-      if (value == "Onlineticket") {
-        if (this.test != "") {
-          if (this.adddata.length == 1) {
-            await setDoc(doc(db, "Online-ticket", this.test), {
-              price_3H: this.adddata[0].price_3H,
-              price_day: this.adddata[0].price_day,
-              type: this.adddata[0].type,
-            });
-          } else {
-            window.alert("Bitte nur eine {} pro array brauchen");
-          }
-        } else {
-          window.alert("Bitte eine ID eingeben");
-        }
-      }
-      if (value == "AngeboteWerbung") {
-        if (this.test != "") {
-          if (this.adddata.length == 1) {
-            await setDoc(doc(db, "AngeboteWerbung", this.test), {
-              price_3H: this.adddata[0].price_3H,
-              price_day: this.adddata[0].price_day,
-              type: this.adddata[0].type,
-            });
-          } else {
-            window.alert("Bitte nur eine {} pro array brauchen");
-          }
-        } else {
-          window.alert("Bitte eine ID eingeben");
-        }
-      }
-      if (value == "Sprechblase") {
-        if (this.test != "") {
-          if (this.adddata.length == 1) {
-            await setDoc(doc(db, "Sprechblase", this.test), {
-              price_3H: this.adddata[0].price_3H,
-              price_day: this.adddata[0].price_day,
-              type: this.adddata[0].type,
-            });
-          } else {
-            window.alert("Bitte nur eine {} pro array brauchen");
-          }
-        } else {
-          window.alert("Bitte eine ID eingeben");
-        }
-      }
-      
-=======
         }
       }
     },
@@ -559,7 +380,6 @@ document.getElementById("Start1").style.display= "block"
           window.alert("Bitte eine ID eingeben");
         }
       }
->>>>>>> AaronBranch
     },
   },
 };
