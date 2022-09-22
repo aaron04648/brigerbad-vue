@@ -2,17 +2,20 @@
   <div class="testbox">
     <form action="/">
       <h1>JSON Edit Formular</h1>
-      <p class="question">Choose which JSON File</p>
+      <p class="question">edit Json File</p>
       <div class="question-answer">
         <select name="" id="dropdownmenu1" @change="JSONedit()">
-          <option class="options" value="">choose Jsonfile</option>
+          <option class="options" value="">{{ this.defaultOption }}</option>
           <option class="options" value="">{{ this.Option1 }}</option>
           <option class="options" value="">{{ this.Option2 }}</option>
           <option class="options" value="">{{ this.Option3 }}</option>
           <option class="options" value="">{{ this.Option4 }}</option>
           <option class="options" value="">{{ this.Option5 }}</option>
         </select>
-        <p id="info" style="display:none; margin-left:2vw;">Für wetter muss ein Stichwort 'sonne', 'bewölkt' oder 'regen' eingesetzt werden</p>
+        <p id="info" style="display: none; margin-left: 2vw">
+          Für wetter muss ein Stichwort 'sonne', 'bewölkt' oder 'regen'
+          eingesetzt werden
+        </p>
         <br />
 
         <div id="editor">
@@ -20,6 +23,18 @@
         </div>
 
         <button @click.prevent="updateData()">save</button>
+        <p class="question">add Json File</p>
+        <select name="" id="dropdownmenu2" @change="changeTemplate()">
+          <option class="options" value="">{{ this.defaultOption }}</option>
+          <option class="options" value="">{{ this.Option1 }}</option>
+          <option class="options" value="">{{ this.Option2 }}</option>
+          <option class="options" value="">{{ this.Option3 }}</option>
+          <option class="options" value="">{{ this.Option4 }}</option>
+          <option class="options" value="">{{ this.Option5 }}</option>
+        </select>
+        <input type="text" placeholder="ID eingeben" v-model="test" />
+        <JsonEditorVue class="editor" v-model="adddata" />
+        <button @click.prevent="newDoc()">add</button>
 
         <br />
       </div>
@@ -28,7 +43,7 @@
 </template>
 
 <script>
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc, setDoc } from "firebase/firestore";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../service/db";
 import JsonEditorVue from "json-editor-vue3";
@@ -42,6 +57,7 @@ export default {
     return {
       ThermeID: "",
       Option1: "EntreeTherme",
+      defaultOption: "choose Jsonfile",
       Option2: "EntreeSpa",
       Option3: "Onlineticket",
       Option4: "AngeboteWerbung",
@@ -51,11 +67,61 @@ export default {
       preview: "",
       inputvalue: "",
       data: undefined,
+      adddata:undefined,
       test: "",
     };
   },
 
   methods: {
+    changeTemplate(){
+            var select = document.getElementById("dropdownmenu2");
+      var value = select.options[select.selectedIndex].text;
+      if(value=="EntreeTherme"){
+        this.adddata = [
+          {
+            price_3H:"",
+            price_day:"",
+            type:""
+          }
+        ]
+      }
+      if(value=="EntreeSpa"){
+        this.adddata = [
+          {
+            price_3h:"",
+            price_24h:"",
+            type:""
+          }
+        ]
+      }
+      if(value=="Onlineticket"){
+        this.adddata = [
+          {
+            description:"",
+            title:"",
+     
+          }
+        ]
+      }
+      if(value=="AngeboteWerbung"){
+        this.adddata = [
+          {
+            Angebote:"",
+            Werbung:"",
+            title:""
+          }
+        ]
+      }
+      if(value=="Sprechblase"){
+        this.adddata = [
+          {
+            Description:"",
+            WetterText:"",
+            wetter:""
+          }
+        ]
+      }
+    },
     JSONedit() {
       var select = document.getElementById("dropdownmenu1");
       var value = select.options[select.selectedIndex].text;
@@ -120,7 +186,7 @@ export default {
         });
       }
       if (value == "Sprechblase") {
-        document.getElementById("info").style.display = "block"
+        document.getElementById("info").style.display = "block";
         onSnapshot(collection(db, "Sprechblase"), (querySnapshot) => {
           const data2 = [];
           querySnapshot.forEach((doc) => {
@@ -134,8 +200,8 @@ export default {
           });
           this.data = data2;
         });
-      }else{
-         document.getElementById("info").style.display = "none"
+      } else {
+        document.getElementById("info").style.display = "none";
       }
     },
     async updateData() {
@@ -161,7 +227,7 @@ export default {
             type: this.data[i].type,
           });
         }
-  
+
         if (value == "Onlineticket") {
           const washingtonRef = doc(db, "Online-ticket", this.data[i].id);
 
@@ -180,19 +246,108 @@ export default {
           });
         }
         if (value == "Sprechblase") {
-          
           const washingtonRef = doc(db, "Sprechblase", this.data[i].id);
-          if(this.data[i].wetter == "sonne" || this.data[i].wetter == "bewölkt" ||this.data[i].wetter == "regen" ){
+          if (
+            this.data[i].wetter == "sonne" ||
+            this.data[i].wetter == "bewölkt" ||
+            this.data[i].wetter == "regen"
+          ) {
             await updateDoc(washingtonRef, {
-            Description: this.data[i].Description,
-            WetterText: this.data[i].WetterText,
-            wetter: this.data[i].wetter,
-          });
-          }else{window.alert("Für wetter muss ein Stichwort 'sonne', 'bewölkt' oder 'regen' eingesetzt werden")}
-         
+              Description: this.data[i].Description,
+              WetterText: this.data[i].WetterText,
+              wetter: this.data[i].wetter,
+            });
+          } else {
+            window.alert(
+              "Für wetter muss ein Stichwort 'sonne', 'bewölkt' oder 'regen' eingesetzt werden"
+            );
+          }
         }
       }
-   
+    },
+
+
+
+
+    async newDoc() {
+      var select = document.getElementById("dropdownmenu2");
+      var value = select.options[select.selectedIndex].text;
+      if (value == "EntreeTherme") {
+        if (this.test != "") {
+          if (this.adddata.length == 1) {
+            await setDoc(doc(db, "Therme", this.test), {
+              price_3H: this.adddata[0].price_3H,
+              price_day: this.adddata[0].price_day,
+              type: this.adddata[0].type,
+            });
+          } else {
+            window.alert("Bitte nur eine {} pro array brauchen");
+          }
+        } else {
+          window.alert("Bitte eine ID eingeben");
+        }
+      }
+      if (value == "EntreeSpa") {
+        if (this.test != "") {
+          if (this.adddata.length == 1) {
+            await setDoc(doc(db, "Spa", this.test), {
+              price_24h: this.adddata[0].price_3H,
+              price_3h: this.adddata[0].price_day,
+              type: this.adddata[0].type,
+            });
+          } else {
+            window.alert("Bitte nur eine {} pro array brauchen");
+          }
+        } else {
+          window.alert("Bitte eine ID eingeben");
+        }
+      }
+      if (value == "Onlineticket") {
+        if (this.test != "") {
+          if (this.adddata.length == 1) {
+            await setDoc(doc(db, "Online-ticket", this.test), {
+              price_3H: this.adddata[0].price_3H,
+              price_day: this.adddata[0].price_day,
+              type: this.adddata[0].type,
+            });
+          } else {
+            window.alert("Bitte nur eine {} pro array brauchen");
+          }
+        } else {
+          window.alert("Bitte eine ID eingeben");
+        }
+      }
+      if (value == "AngeboteWerbung") {
+        if (this.test != "") {
+          if (this.adddata.length == 1) {
+            await setDoc(doc(db, "AngeboteWerbung", this.test), {
+              price_3H: this.adddata[0].price_3H,
+              price_day: this.adddata[0].price_day,
+              type: this.adddata[0].type,
+            });
+          } else {
+            window.alert("Bitte nur eine {} pro array brauchen");
+          }
+        } else {
+          window.alert("Bitte eine ID eingeben");
+        }
+      }
+      if (value == "Sprechblase") {
+        if (this.test != "") {
+          if (this.adddata.length == 1) {
+            await setDoc(doc(db, "Sprechblase", this.test), {
+              price_3H: this.adddata[0].price_3H,
+              price_day: this.adddata[0].price_day,
+              type: this.adddata[0].type,
+            });
+          } else {
+            window.alert("Bitte nur eine {} pro array brauchen");
+          }
+        } else {
+          window.alert("Bitte eine ID eingeben");
+        }
+      }
+      
     },
   },
 };
