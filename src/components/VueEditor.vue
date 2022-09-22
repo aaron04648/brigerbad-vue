@@ -306,8 +306,8 @@ export default {
         if (this.test != "") {
           if (this.adddata.length == 1) {
             await setDoc(doc(db, "Online-ticket", this.test), {
-              price_3H: this.adddata[0].price_3H,
-              price_day: this.adddata[0].price_day,
+              price_3h: this.adddata[0].price_3h,
+              price_24h: this.adddata[0].price_24h,
               type: this.adddata[0].type,
             });
           } else {
@@ -321,9 +321,9 @@ export default {
         if (this.test != "") {
           if (this.adddata.length == 1) {
             await setDoc(doc(db, "AngeboteWerbung", this.test), {
-              price_3H: this.adddata[0].price_3H,
-              price_day: this.adddata[0].price_day,
-              type: this.adddata[0].type,
+              Angebote: this.adddata[0].Angebote,
+              Werbung: this.adddata[0].Werbung,
+              title: this.adddata[0].title,
             });
           } else {
             window.alert("Bitte nur eine {} pro array brauchen");
@@ -336,9 +336,9 @@ export default {
         if (this.test != "") {
           if (this.adddata.length == 1) {
             await setDoc(doc(db, "Sprechblase", this.test), {
-              price_3H: this.adddata[0].price_3H,
-              price_day: this.adddata[0].price_day,
-              type: this.adddata[0].type,
+              Description: this.adddata[0].Description,
+              WetterText: this.adddata[0].WetterText,
+              wetter: this.adddata[0].wetter,
             });
           } else {
             window.alert("Bitte nur eine {} pro array brauchen");
