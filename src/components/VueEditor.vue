@@ -1,45 +1,65 @@
 <template>
-  <div class="testbox">
-    <form action="/">
-      <h1>JSON Edit Formular</h1>
-      <p class="question">edit Json File</p>
-      <div class="question-answer">
-        <select name="" id="dropdownmenu1" @change="JSONedit()">
-          <option class="options" value="">{{ this.defaultOption }}</option>
-          <option class="options" value="">{{ this.Option1 }}</option>
-          <option class="options" value="">{{ this.Option2 }}</option>
-          <option class="options" value="">{{ this.Option3 }}</option>
-          <option class="options" value="">{{ this.Option4 }}</option>
-          <option class="options" value="">{{ this.Option5 }}</option>
-        </select>
-        <p id="info" style="display: none; margin-left: 2vw">
-          Für wetter muss ein Stichwort 'sonne', 'bewölkt' oder 'regen'
-          eingesetzt werden
-        </p>
-        <br />
+  <ul>
+    <li id="logo"><img @click=showStart() src="../assets/logo.svg" alt="" /></li>
+    <li id="title">JSON Edit Formular</li>
+    <li><a @click="showAddData()">Add Data</a></li>
+    <li><a @click="showEditData()">Edit Data</a></li>
+    <li><a>Delete Data</a></li>
+  </ul>
+  <!-- Start--> 
+<div id="Start1">
+  <p id=info>Was möchten Sie tun?</p>
+<div id="Start">
 
-        <div id="editor">
-          <JsonEditorVue class="editor" v-model="data" />
-        </div>
+<div @click="showAddData()" class="innerStart">Add Data</div>
+<div @click="showAddData()" class="innerStart">Edit Data</div>
+<div class="innerStart">Delete Data</div>
+</div>
+</div>
 
-        <button @click.prevent="updateData()">save</button>
-        <p class="question">add Json File</p>
-        <select name="" id="dropdownmenu2" @change="changeTemplate()">
-          <option class="options" value="">{{ this.defaultOption }}</option>
-          <option class="options" value="">{{ this.Option1 }}</option>
-          <option class="options" value="">{{ this.Option2 }}</option>
-          <option class="options" value="">{{ this.Option3 }}</option>
-          <option class="options" value="">{{ this.Option4 }}</option>
-          <option class="options" value="">{{ this.Option5 }}</option>
-        </select>
-        <input type="text" placeholder="ID eingeben" v-model="test" />
-        <JsonEditorVue class="editor" v-model="adddata" />
-        <button @click.prevent="newDoc()">add</button>
+<!-- editData-->
+  <div id="editData">
+    <p class="question">Edit Jsonfile</p>
+    <div class="question-answer">
+      <select name="" id="dropdownmenu1" class="dropdowndesign" @change="JSONedit()">
+        <option class="options" value="">{{ this.defaultOption }}</option>
+        <option class="options" value="">{{ this.Option1 }}</option>
+        <option class="options" value="">{{ this.Option2 }}</option>
+        <option class="options" value="">{{ this.Option3 }}</option>
+        <option class="options" value="">{{ this.Option4 }}</option>
+        <option class="options" value="">{{ this.Option5 }}</option>
+      </select>
+      <p id="info" style="display: none; margin-left: 2vw">
+        Für wetter muss ein Stichwort 'sonne', 'bewölkt' oder 'regen' eingesetzt
+        werden
+      </p>
+      <br />
 
-        <br />
+      <div class="editor">
+        <JsonEditorVue  v-model="data" />
       </div>
-    </form>
+      <button @click.prevent="updateData()">save</button>
+    </div>
   </div>
+<!-- addData-->
+  <div id="addData">
+    <p class="question">Add Jsonfile</p>
+    <select name="" id="dropdownmenu2"  class="dropdowndesign" @change="changeTemplate()">
+      <option class="options" value="">{{ this.defaultOption }}</option>
+      <option class="options" value="">{{ this.Option1 }}</option>
+      <option class="options" value="">{{ this.Option2 }}</option>
+      <option class="options" value="">{{ this.Option3 }}</option>
+      <option class="options" value="">{{ this.Option4 }}</option>
+      <option class="options" value="">{{ this.Option5 }}</option>
+    </select>
+    <input type="text" placeholder="ID eingeben" id="IDinput" v-model="test" />
+    <div class="editor">
+ <JsonEditorVue  v-model="adddata" />
+    </div>
+   
+    <button @click.prevent="newDoc()">add</button>
+  </div>
+
 </template>
 
 <script>
@@ -67,59 +87,75 @@ export default {
       preview: "",
       inputvalue: "",
       data: undefined,
-      adddata:undefined,
+      adddata: undefined,
       test: "",
     };
   },
 
   methods: {
-    changeTemplate(){
-            var select = document.getElementById("dropdownmenu2");
+showEditData(){
+document.getElementById("editData").style.display= "block"
+document.getElementById("addData").style.display= "none"
+document.getElementById("Start1").style.display= "none"
+},
+showAddData(){
+document.getElementById("addData").style.display= "block"
+document.getElementById("editData").style.display= "none"
+document.getElementById("Start1").style.display= "none"
+},
+showStart(){
+document.getElementById("addData").style.display= "none"
+document.getElementById("editData").style.display= "none"
+document.getElementById("Start1").style.display= "block"
+},
+
+
+    changeTemplate() {
+      var select = document.getElementById("dropdownmenu2");
       var value = select.options[select.selectedIndex].text;
-      if(value=="EntreeTherme"){
+      if (value == "EntreeTherme") {
         this.adddata = [
           {
-            price_3H:"",
-            price_day:"",
-            type:""
-          }
-        ]
+            price_3H: "",
+            price_day: "",
+            type: "",
+          },
+        ];
       }
-      if(value=="EntreeSpa"){
+      if (value == "EntreeSpa") {
         this.adddata = [
           {
-            price_3h:"",
-            price_24h:"",
-            type:""
-          }
-        ]
+            price_3h: "",
+            price_24h: "",
+            type: "",
+          },
+        ];
       }
-      if(value=="Onlineticket"){
+      if (value == "Onlineticket") {
         this.adddata = [
           {
-            description:"",
-            title:"",
-     
-          }
-        ]
+            description: "",
+            title: "",
+          },
+        ];
       }
-      if(value=="AngeboteWerbung"){
+      if (value == "AngeboteWerbung") {
         this.adddata = [
           {
-            Angebote:"",
-            Werbung:"",
-            title:""
-          }
-        ]
+            Angebote: "",
+            Werbung: "",
+            title: "",
+          },
+        ];
       }
-      if(value=="Sprechblase"){
+      if (value == "Sprechblase") {
         this.adddata = [
           {
-            Description:"",
-            WetterText:"",
-            wetter:""
-          }
-        ]
+            Description: "",
+            WetterText: "",
+            wetter: "",
+          },
+        ];
       }
     },
     JSONedit() {
@@ -266,9 +302,6 @@ export default {
       }
     },
 
-
-
-
     async newDoc() {
       var select = document.getElementById("dropdownmenu2");
       var value = select.options[select.selectedIndex].text;
@@ -347,23 +380,84 @@ export default {
           window.alert("Bitte eine ID eingeben");
         }
       }
-      
     },
   },
 };
 </script>
 
 <style  scoped>
+#IDinput{
+  font-size: 1vw;
+box-shadow: 0.1vw 0.1vw 0.1vw rgb(67, 66, 66);
+border-radius: 0.2vw;
+border:rgb(155, 151, 151);
+}
+p{
+  color: black;
+  border-bottom:0.1vw solid black ;
+  width: 21vw;
+}
+.question{
+  margin-left: 2vw;
+  color: black;
+font-size: 2vw;
+  
+}
+.dropdowndesign{
+font-size: 1vw;
+box-shadow: 0.1vw 0.1vw 0.1vw rgb(67, 66, 66);
+border-radius: 0.2vw;
+}
+#Start{
+  box-shadow: 0.2vw 0.2vw 0.2vw rgb(104, 102, 102);
+  width: 45vw;
+  height: 9vw;
+  margin-left:27vw ;
+
+  background-color:#333 ;
+  color: whitesmoke;
+
+  font-size: 2vw;
+  }
+  #info{
+    font-size: 2vw;
+      margin-left:27vw ;
+      margin-top:10vw ;
+  }
+.innerStart{
+  float: left;
+  margin: 2VW;
+  padding: 1vw;
+}
+.innerStart:hover{
+    background-color: #111;
+    cursor: pointer;
+}
+#editData{
+  display: none;
+}
+#addData{
+  display: none;
+}
+#title {
+  color: whitesmoke;
+  margin: 1vw;
+  border-bottom: 0.1vw solid whitesmoke;
+}
 #dropdownmenu1 {
   margin: 2vw;
 }
+#dropdownmenu2 {
+  margin: 2vw;
+}
 
-#editor {
+.editor {
   margin: 2vw;
   margin-top: 0;
   margin-bottom: 0;
 }
 button {
+   box-shadow: 0.1vw 0.1vw 0.1vw rgb(183, 180, 180);
   margin: 2vw;
   width: 150px;
   padding: 10px;
@@ -371,12 +465,44 @@ button {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  background-color: #095484;
+  background-color: #333;
   font-size: 16px;
   color: #fff;
   cursor: pointer;
 }
 button:hover {
-  background-color: #0666a3;
+  background-color: #111;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 1vw;
+  text-decoration: none;
+}
+li img {
+  margin: 1vw;
+  margin-right: 0.5vw;
+  width: 1vw;
+  height: auto;
+}
+li img:hover {
+cursor: pointer;
+}
+
+li a:hover {
+  background-color: #111;
 }
 </style>
