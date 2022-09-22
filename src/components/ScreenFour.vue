@@ -125,6 +125,10 @@ data2.push(data)
   opacity: 0;
   animation: layouthidden1 30s infinite ;
 }
+.Main1 img{
+  width: 100vw;
+  height: auto;
+}
 #allinall2 {
   position: fixed;
   height: 48.51851851851852vh;
@@ -175,6 +179,10 @@ data2.push(data)
   opacity: 0;
   animation: layouthidden2 30s infinite ;
 }
+.Main2 img{
+  width: 100vw;
+  height: auto;
+}
 #allinall3 {
   position: fixed;
   height: 48.51851851851852vh;
@@ -224,6 +232,10 @@ data2.push(data)
   z-index: 0;
   opacity: 0;
   animation: layouthidden3 30s infinite ;
+}
+.Main3 img{
+  width: 100vw;
+  height: auto;
 }
 @keyframes layouthidden1 {
   0% {
