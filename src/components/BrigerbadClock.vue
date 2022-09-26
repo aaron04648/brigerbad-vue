@@ -70,7 +70,7 @@
 
 <script>
 
-import ClockProgramm from ".//BrigerbadProgramm.json";
+
 import Piechart from "./ChildPie.vue";
 import Piechartunten from "./PieUnten.vue";
 import { collection, onSnapshot } from "firebase/firestore";
@@ -85,7 +85,7 @@ Piechartunten
     return {
       WhichID: undefined,
       Event: undefined,
-      Programm: ClockProgramm,
+      Programm: undefined,
       Intervalltest: "Loading..",
       timenow: "",
       time2: "",
@@ -180,6 +180,24 @@ data2.push(data)
   });
   console.log(data2)
  this.Event = data2
+  console.log()
+
+
+});
+onSnapshot(collection(db, "ClockProgramm"), (querySnapshot) => {
+const data2 = []
+  querySnapshot.forEach((doc) => {
+  const data={
+  id:doc.id,
+  beginTime:doc.data().beginTime,
+  Event:doc.data().Event,
+  hour:doc.data().hour,
+  min:doc.data().min,
+}
+data2.push(data) 
+  });
+  console.log(data2)
+ this.Programm = data2
   console.log()
 
 

@@ -5,7 +5,7 @@
 
 <div class="Main">
   <div class="cardcontainer">
-    <img class="galleryImg" src="../assets/terme-1.jpg">
+    <img id="img1" class="galleryImg" src="../assets/terme-1.jpg">
   </div>
 </div>
 
@@ -25,7 +25,7 @@
 
 <div class="Main2">
   <div class="cardcontainer">
-    <img class="galleryImg" src="../assets/spa-1.jpg">
+    <img id="img1" class="galleryImg" src="../assets/spa-1.jpg">
   </div>
 </div>
 </template>
@@ -66,14 +66,14 @@ data2.push(data)
 <style scoped>
 .mainmain{
   position: fixed;
-  width: 100vw;
+  width: 300vw;
   height: 100vh;
   background-color: black;
 }
 
 .Main{
-  position: fixed;
-  width: 100vw;
+  position: absolute;
+  width: 300vw;
   height: 100vh;
   top: 0;
   left: 0;
@@ -86,8 +86,8 @@ data2.push(data)
 }
 
 .Main2{
-  position: fixed;
-  width: 100vw;
+  position: absolute;
+  width: 300vw;
   height: 100vh;
   top: 0;
   left: 0;
@@ -205,7 +205,17 @@ table {
   }
 }
 
-.cardcontainer img {
+ #img1 {
+    position: fixed;
+    left: -100vw;
+    float: left;
+    z-index: -1;
+    animation: zoominoutsinglefeatured infinite ;
+    animation-duration: 15s;
+    animation-timing-function: linear;
+}
+ #img2 {
+  width: 300vw;
     position: fixed;
     left: -100vw;
     float: left;
