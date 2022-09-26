@@ -6,7 +6,7 @@
     <div id=allinall1 v-for="item in data" :key="item.id">
         <img id="imgRestaurant1" src="../assets/icon-restaurant.svg" alt="">
         <div id="content1">
-            <h1 id="titletext1">{{item.title}}</h1>
+            <h1 class="title" id="titletext1">{{item.title}}</h1>
             <p class="AngeboteWerbung1">{{item.Angebot}}</p>
             <p class="AngeboteWerbung1">{{item.Werbung}}</p>
         </div>
@@ -17,7 +17,7 @@
     <div id=allinall2 v-for="item in data" :key="item.id">
         <img id="imgRestaurant2" src="../assets/icon-therme.svg" alt="">
         <div id="content2">
-            <h1 id="titletext2">{{item.title}}</h1>
+            <h1 class="title" id="titletext2">{{item.title}}</h1>
             <p class="AngeboteWerbung2">{{item.Angebot}}</p>
             <p class="AngeboteWerbung2">{{item.Werbung}}</p>
         </div>
@@ -29,7 +29,7 @@
         <div id=allinall3 v-for="item in data" :key="item.id">
             <img id="imgRestaurant3" src="../assets/icon-spa.svg" alt="">
             <div id="content3">
-                <h1 id="titletext3">{{item.title}}</h1>
+                <h1 class="title" id="titletext3">{{item.title}}</h1>
                 <p class="AngeboteWerbung3">{{item.Angebot}}</p>
                 <p class="AngeboteWerbung3">{{item.Werbung}}</p>
             </div>
@@ -69,11 +69,16 @@ data2.push(data)
 }
 </script>
 <style>
+.title{
+ font-weight: bold;
+  font-family: TTNormsBold;
+}
 .mainmain{
     background-color: black;
     width: 100vw;
     height: 100vh;
     z-index: -1;
+   
 }
 #allinall1 {
   position: fixed;
@@ -125,6 +130,10 @@ data2.push(data)
   opacity: 0;
   animation: layouthidden1 30s infinite ;
 }
+.Main1 img{
+  width: 100vw;
+  height: auto;
+}
 #allinall2 {
   position: fixed;
   height: 48.51851851851852vh;
@@ -175,6 +184,10 @@ data2.push(data)
   opacity: 0;
   animation: layouthidden2 30s infinite ;
 }
+.Main2 img{
+  width: 100vw;
+  height: auto;
+}
 #allinall3 {
   position: fixed;
   height: 48.51851851851852vh;
@@ -206,6 +219,7 @@ data2.push(data)
 #titletext3{
     font-size: 3vw;
     margin: 0;
+   
 }
 .AngeboteWerbung3{
     font-size: 3vw;
@@ -224,6 +238,10 @@ data2.push(data)
   z-index: 0;
   opacity: 0;
   animation: layouthidden3 30s infinite ;
+}
+.Main3 img{
+  width: 100vw;
+  height: auto;
 }
 @keyframes layouthidden1 {
   0% {

@@ -1,10 +1,15 @@
+
 [
     {
-        "ID":1,
-        "title":"Angebote",
-        "Angebot":"Heute alles kostenlos",
-        "Werbung":"neuer Preis heute!!"
-            }
- ]   
-        
-    
+        "ID": 1,
+        "title": "Angebote",
+        "Angebot": "Heute alles kostenlos",
+        "Werbung": "neuer Preis heute!!",
+        "title2": "Angebote2",
+        "Angebot2": "Heute alles kostenlos",
+        "Werbung2": "neuer Preis heute!!",
+        "title3": "Angebote3",
+        "Angebot3": "Heute alles kostenlos",
+        "Werbung3": "neuer Preis heute!!"
+    }
+]
