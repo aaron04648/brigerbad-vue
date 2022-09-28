@@ -14,7 +14,8 @@
 
 <script>
 import { Pie } from 'vue-chartjs'
-
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from '../service/db'
 
 import {
   Chart as ChartJS,
@@ -61,22 +62,50 @@ export default {
       type: Array,
       default: () => []
     },
-    Chartdata1:Number,
-    Chartdata2:Number,
-    Chartdata3:Number
+
   },
   data() {
     return {
-      
+    Chartdata1:Number,
+    Chartdata2:Number,
+    Chartdata3:Number
      
     }
+  },mounted(){
+    onSnapshot(collection(db, "Clock"), (querySnapshot) => {
+const data2 = []
+  querySnapshot.forEach((doc) => {
+  const data={
+  id:doc.id,
+  Chartdata1:doc.data().Chartdata1,
+  Chartdata2:doc.data().Chartdata2,
+  Chartdata3:doc.data().Chartdata3,
+}
+data2.push(data) 
+  });
+  console.log(data2)
+ this.Chartdata1 = data2[0].Chartdata1
+ this.Chartdata2 = data2[0].Chartdata2
+ this.Chartdata3 = data2[0].Chartdata3
+  console.log()
+
+
+});
+ window.setInterval(() => {
+            var time = new Date ()
+            var seconds = time.getSeconds()     
+            this.Chartdata1 = seconds
+            this.Chartdata2 = 60 - this.Chartdata1
+            },1000);
   },computed:{
     chartData() {
         return{
           datasets: [
           {
-            animation:0,
-            backgroundColor: [ '#00D8FF', '#DD1B16'],
+             animation:"none",
+            backgroundColor: [ 'transparent', '#3E3D3D'],
+             borderColor: "transparent",
+             barThickness: 20,
             data: [this.Chartdata1,this.Chartdata2]
           }
         ]

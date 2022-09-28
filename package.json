@@ -14,6 +14,7 @@
     "hchs-vue-charts": "^1.2.8",
     "json-editor-vue": "^0.5.1",
     "json-editor-vue3": "^1.0.6",
+    "swiper": "^8.4.2",
     "vanilla-jsoneditor": "^0.6.4",
     "vue": "^3.2.13",
     "vue-3-socket.io": "^1.0.5",

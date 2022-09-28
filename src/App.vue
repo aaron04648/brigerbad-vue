@@ -25,6 +25,10 @@ export default {
   src: local("TTNorms-Bold"), url(./Fonts/TTNorms-Thin.otf) format("truetype");
 }
 @font-face {
+  font-family: "TTNormsregular";
+  src: local("TTNorms-Bold"), url(./Fonts/TTNorms-Regular.otf) format("truetype");
+}
+@font-face {
   font-family: "TTNormsBold";
   src: local("TTNorms-Bold"), url(./Fonts/TTNorms-Medium.otf) format("truetype");
 }

@@ -11,7 +11,6 @@
     </div>
     <div class="container">
       <div class="box">
-
         <table class="content">
           <thead>
             <tr>
@@ -24,10 +23,9 @@
           <tbody>
             <tr
               v-for="(item, k) in Programm"
-              v-on:update="Clock(item,k)"
+              v-on:update="Clock(item, k)"
               :key="item.id"
               :class="{ applyBlue: Timeleft(item, k) }"
-              
             >
               <td id="td-1">
                 {{ item.beginTime }}
@@ -36,25 +34,23 @@
             </tr>
           </tbody>
         </table>
-
       </div>
 
       <div class="box">
         <div class="smalbox">
-          <h2 id="title1" alt="">{{ this.Intervalltest}} minuten</h2>
-          <h3 id="Time1"></h3>
-          <Piechart :Chartdata1="Chartdata1" :Chartdata2="Chartdata2"/>
-          
+          <h2 id="title1" alt="">{{ this.Intervalltest }} minuten</h2>
+        
+          <Piechart :Chartdata1="Chartdata1" :Chartdata2="Chartdata2" />
         </div>
         <div class="smalbox">
-          <h2 id="title2">{{this.Chartdata3}} minuten</h2>
-          <h3 id="Time2"></h3>
-           <Piechartunten :Chartdata1="Chartdata1" :Chartdata3="Chartdata3">
-           </Piechartunten>
+          <h2 id="title2"> {{this.Chartdata3}}minuten</h2>
+      
+          <Piechartunten :Chartdata1="Chartdata1" :Chartdata3="Chartdata3">
+          </Piechartunten>
         </div>
       </div>
 
-  <div class="rightbox" v-for="item in Event" :key="item.id">
+      <div class="rightbox" v-for="item in Event" :key="item.id">
         <div class="box">
           <h2>{{ item.Aktion }}</h2>
           <h3>{{ item.d1 }}</h3>
@@ -69,18 +65,16 @@
 </template>
 
 <script>
-
-
+//import { doc, updateDoc } from "firebase/firestore";
 import Piechart from "./ChildPie.vue";
 import Piechartunten from "./PieUnten.vue";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../service/db";
 export default {
- 
-components:{
-Piechart,
-Piechartunten
-},
+  components: {
+    Piechart,
+    Piechartunten,
+  },
   data() {
     return {
       WhichID: undefined,
@@ -91,122 +85,146 @@ Piechartunten
       time2: "",
       time3: "",
       Test: 200,
-      applyBlueData:false,
+      applyBlueData: false,
       Chartdata1: undefined,
       Chartdata2: undefined,
       Chartdata3: undefined,
-      item:undefined,
-      k:undefined
+     
     };
-  },watch:{
   },
+  watch: {},
   methods: {
-   Timeleft:function(item, k) {
+    Timeleft: function (item, k) {
+      var timeNow = new Date();
+      var time2 = new Date();
+      time2.setHours(item.hour);
+      time2.setMinutes(item.min);
+      time2.setSeconds(0);
+      var time3 = new Date();
+      var time4 = new Date();
+      if (this.Programm[k + 1] === undefined) {
+        return time2 < timeNow;
+      }
+      if (this.Programm[k + 2] === undefined) {
+        return time2 < timeNow;
+      }
+      if (item === undefined) {
+        return time2 < timeNow;
+      }
+      time4.setHours(this.Programm[k + 2].hour);
+      time4.setMinutes(this.Programm[k + 2].min);
+      time4.setSeconds(0);
+      time3.setHours(this.Programm[k + 1].hour);
+      time3.setMinutes(this.Programm[k + 1].min);
+      time3.setSeconds(0);
+      this.time3 = time3;
+      this.time2 = time2;
+      this.timenow = timeNow;
+
+      return time2 < timeNow && timeNow < time3;
+    },
+   /* async clock() {
+      for (let index = 0; index < this.Programm.length; index++) {
         var timeNow = new Date();
         var time2 = new Date();
-        time2.setHours(item.hour);
-        time2.setMinutes(item.min);
+        time2.setHours(this.Programm[index].hour);
+        time2.setMinutes(this.Programm[index].min);
         time2.setSeconds(0);
         var time3 = new Date();
         var time4 = new Date();
-        if (this.Programm[k + 1] === undefined) {
+        if (this.Programm[index + 1] === undefined) {
           return time2 < timeNow;
         }
-        if (this.Programm[k + 2] === undefined) {
+        if (this.Programm[index + 2] === undefined) {
           return time2 < timeNow;
         }
-        if (item === undefined) {
+        if (this.Programm[index] === undefined) {
           return time2 < timeNow;
         }
-        time4.setHours(this.Programm[k+2].hour)
-        time4.setMinutes(this.Programm[k+2].min)
-        time4.setSeconds(0)
-        time3.setHours(this.Programm[k + 1].hour);
-        time3.setMinutes(this.Programm[k + 1].min);
+        time4.setHours(this.Programm[index + 2].hour);
+        time4.setMinutes(this.Programm[index + 2].min);
+        time4.setSeconds(0);
+        time3.setHours(this.Programm[index + 1].hour);
+        time3.setMinutes(this.Programm[index + 1].min);
         time3.setSeconds(0);
         this.time3 = time3;
         this.time2 = time2;
         this.timenow = timeNow;
-        if(time2 < timeNow && timeNow < time3){
-          var h1 = (timeNow.getHours()-time2.getHours())*60
-          var min1 = timeNow.getMinutes()-time2.getMinutes()
-          var tot1 = h1+min1
-          var h2 = (time3.getHours()-timeNow.getHours())*60
-          var min2 = (time3.getMinutes()-timeNow.getMinutes())
-          var tot2 = h2+min2
-          var h3 = (time4.getHours()-timeNow.getHours())*60
-          var min3 = (time4.getMinutes()-timeNow.getMinutes())
-          var tot3 = h3+min3
-          this.Chartdata1 =tot1
-          this.Chartdata2 = tot2
-          this.Chartdata3 = tot3
-          this.Intervalltest = this.Chartdata2
-          
-          setInterval(function () {
-            var time = new Date()
-            var Increment = time.getSeconds()
-            
-            var test  = parseInt(Increment)
-          
-            test = test +1
-              console.log(test)
-            if(test===1){
-              test=0
-            window.location.reload()
-          }}, 1000);
-          
+        if (time2 < timeNow && timeNow < time3) {
+          var h1 = (timeNow.getHours() - time2.getHours()) * 60;
+          var min1 = timeNow.getMinutes() - time2.getMinutes();
+          var tot1 = h1 + min1;
+          var h2 = (time3.getHours() - timeNow.getHours()) * 60;
+          var min2 = time3.getMinutes() - timeNow.getMinutes();
+          var tot2 = h2 + min2;
+          var h3 = (time4.getHours() - timeNow.getHours()) * 60;
+          var min3 = time4.getMinutes() - timeNow.getMinutes();
+          var tot3 = h3 + min3;
+
+          const washingtonRef = doc(db, "Clock", "Times");
+        
+          await updateDoc(washingtonRef, {
+            Chartdata1: tot1,
+            Chartdata2: tot2,
+            Chartdata3: tot3,
+          });
         }
-        //setInterval(function () {}, );
-        return time2 < timeNow && timeNow < time3;
-    },
-   
-   
-    
-    
-  },mounted() {
-   console.log("mounted")
-
-onSnapshot(collection(db, "Clock Events"), (querySnapshot) => {
-const data2 = []
-  querySnapshot.forEach((doc) => {
-  const data={
-  id:doc.id,
-  Aktion:doc.data().Aktion,
-  Event:doc.data().Event,
-  d1:doc.data().d1,
-  d2:doc.data().d2,
-}
-data2.push(data) 
-  });
-  console.log(data2)
- this.Event = data2
-  console.log()
-
-
-});
-onSnapshot(collection(db, "ClockProgramm"), (querySnapshot) => {
-const data2 = []
-  querySnapshot.forEach((doc) => {
-  const data={
-  id:doc.id,
-  Event:doc.data().Event,
-  beginTime:doc.data().beginTime,
-  hour:doc.data().hour,
-  min:doc.data().min,
-}
-data2.push(data) 
-  });
-  console.log(data2)
- this.Programm = data2
-  console.log()
-
-
-});
+      }
+    },*/
   },
-  computed() {
-  
-  }
+  mounted() {
+    console.log("mounted");
+    onSnapshot(collection(db, "Clock"), (querySnapshot) => {
+      const data2 = [];
+      querySnapshot.forEach((doc) => {
+        const data = {
+          id: doc.id,
+          Intervalltest: doc.data().Chartdata2,
+          Chartdata3: doc.data().Chartdata3,
+        };
+        data2.push(data);
+      });
+      console.log(data2);
+      this.Intervalltest = data2[0].Intervalltest;
+      this.Chartdata3 = data2[0].Chartdata3;
+      console.log();
+    });
+    onSnapshot(collection(db, "Clock Events"), (querySnapshot) => {
+      const data2 = [];
+      querySnapshot.forEach((doc) => {
+        const data = {
+          id: doc.id,
+          Aktion: doc.data().Aktion,
+          Event: doc.data().Event,
+          d1: doc.data().d1,
+          d2: doc.data().d2,
+        };
+        data2.push(data);
+      });
+      console.log(data2);
+      this.Event = data2;
+      console.log();
+    });
+    onSnapshot(collection(db, "ClockProgramm"), (querySnapshot) => {
+      const data2 = [];
+      querySnapshot.forEach((doc) => {
+        const data = {
+          id: doc.id,
+          Event: doc.data().Event,
+          beginTime: doc.data().beginTime,
+          hour: doc.data().hour,
+          min: doc.data().min,
+        };
+        data2.push(data);
+      });
+      console.log(data2);
+      this.Programm = data2;
+      console.log();
+    });
 
+    
+  },
+  computed() {},
 };
 </script>
 
