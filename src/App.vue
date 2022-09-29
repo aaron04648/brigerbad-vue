@@ -21,22 +21,20 @@ export default {
 
 <style>
 @font-face {
-  font-family: "TTNormsThin";
-  src: local("TTNorms-Bold"), url(./Fonts/TTNorms-Thin.otf) format("truetype");
+  font-family: "TTNormsProNormal";
+  src: local("TTNorms-Thin"), url(./Fonts/TTNormsProNormal.ttf) format("truetype");
 }
 @font-face {
-  font-family: "TTNormsregular";
-  src: local("TTNorms-Bold"), url(./Fonts/TT_Norms_Pro_Normal.ttf) format("truetype");
+  font-family: "TTNormsProBold";
+  src: local("TTNorms-Thin"), url(./Fonts/TT-Norms-Bold.ttf) format("truetype");
 }
-@font-face {
-  font-family: "TTNormsBold";
-  src: local("TTNorms-Bold"), url(./Fonts/TTNorms-Medium.otf) format("truetype");
-}
+
+
 
 #app {
   overflow: hidden;
   font-weight: bold;
-  font-family: TTNormsThin;
+  font-family: TTNormsProNormal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 

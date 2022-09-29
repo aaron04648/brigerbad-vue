@@ -1,11 +1,12 @@
 
 <template>
   <div id="main">
+   
     <div class="container">
       <table class="content">
         <thead>
           <tr>
-            <th style="font-family: TTNormsBold">PROGRAMM</th>
+            <th style="font-family: TTNormsProBold">PROGRAMM</th>
           </tr>
         </thead>
         <tbody>
@@ -27,14 +28,14 @@
 
       <div class="PieContainer">
         <div id="Pieoben">
-          <h1 id="PieObenH1">SOMMER STURM</h1>
+          <h1 id="PieObenH1">{{this.nexProgramm}}</h1>
           <p id="PieTime1">
             <span class="Ziffer"
-              ><span style="font-size: 4.5vw">100</span><br />
+              ><span style="font-size: 4.5vw">120</span><br />
               min</span
             >
           </p>
-          <img src="../assets/zifferblatt.svg" id="Watch" alt="" />
+          <img src="../assets/icone-face.svg" id="Watch" alt="" />
 
           <div id="part2">
             <Piechart
@@ -46,14 +47,14 @@
           </div>
         </div>
         <div id="Pieunten">
-          <h1 id="PieUntenH1">SOMMER STURM</h1>
+          <h1 id="PieUntenH1">{{this.secondnexProgramm}}</h1>
           <p id="PieTime2">
             <span class="Ziffer"
               ><span style="font-size: 4.5vw">1</span> <br />
               min</span
             >
           </p>
-          <img src="../assets/watch.svg" id="Watch2" alt="" />
+          <img src="../assets/icone-face.svg" id="Watch2" alt="" />
 
           <div id="part2">
             <Piechartunten
@@ -108,11 +109,13 @@ export default {
       WhichID: undefined,
       Event: undefined,
       Programm: undefined,
-      Intervalltest: "12 min",
+      nexProgramm:"",
+      secondnextProgramm:"",
+     
       timenow: "",
       time2: "",
       time3: "",
-      Test: 200,
+      
       applyBlueData: false,
       index: 0,
       CommercialText: "",
@@ -147,7 +150,9 @@ export default {
       this.time3 = time3;
       this.time2 = time2;
       this.timenow = timeNow;
-
+      this.nexProgramm = this.Programm[k +1].Event
+      this.secondnexProgramm = this.Programm[k +1].Event
+      console.log(this.secondnexProgramm)
       return time2 < timeNow && timeNow < time3;
     },
     /* async clock() {
@@ -226,7 +231,7 @@ export default {
         };
         data2.push(data);
       });
-      console.log(data2.length)
+      
       this.Event = data2;
       var lastindex = data2.length -1
       this.CommercialText = data2[lastindex].d1;
@@ -237,7 +242,7 @@ export default {
       var index2 = 1;
       setInterval(() => {
       
-console.log(data2.length)
+
     
  if (data2.length == index) {
           index = 0;
@@ -277,7 +282,8 @@ console.log(data2.length)
 
 <style scoped>
 .Ziffer {
-  margin-top: 1.4vw;
+  margin-top: 2.8vw;
+
   padding-bottom: 1vw;
   z-index: 1;
   vertical-align: middle;
@@ -292,7 +298,7 @@ console.log(data2.length)
   margin-bottom: 10vw;
 }
 .CommercialTitle {
-  font-family: TTNormsBold;
+  font-family: TTNormsProBold;
   font-size: 2.5vw;
   margin: 2vw;
   margin-right: 7vw;
@@ -307,7 +313,7 @@ console.log(data2.length)
 
 #PieTime2 {
   vertical-align: middle;
-  font-family: TTNormsBold;
+  font-family: TTNormsProBold;
   text-align: center;
   font-size: 3vw;
   z-index: 1;
@@ -317,15 +323,15 @@ console.log(data2.length)
   justify-content: center;
 }
 #PieUntenH1 {
-  font-family: TTNormsBold;
+  font-family: TTNormsProBold;
   text-align: center;
   font-size: 1.8vw;
   margin: 0;
 }
 #pie2 {
-  margin-top: -13.2vw;
-  margin-left: 4.9vw;
-  width: 10.5vw;
+margin-top: -15.8vw;
+  margin-left: 3.9vw;
+  width: 12vw;
   height: auto;
   z-index: -2;
   padding: 0;
@@ -341,7 +347,7 @@ console.log(data2.length)
 }
 #PieTime1 {
   vertical-align: middle;
-  font-family: TTNormsBold;
+  font-family: TTNormsProBold;
   text-align: center;
   font-size: 3vw;
   z-index: 1;
@@ -351,15 +357,15 @@ console.log(data2.length)
   justify-content: center;
 }
 #PieObenH1 {
-  font-family: TTNormsBold;
+  font-family: TTNormsProBold;
   text-align: center;
   font-size: 1.8vw;
   margin: 0;
 }
 #pie1 {
-  margin-top: -13.2vw;
-  margin-left: 4.9vw;
-  width: 10.5vw;
+  margin-top: -15.8vw;
+  margin-left: 3.9vw;
+  width: 12vw;
   height: auto;
   z-index: -2;
   padding: 0;
@@ -392,7 +398,7 @@ table.content {
   margin-top: 4vw;
   margin-left: 4vw;
   padding-right: 10vw;
-  padding-bottom: 4vw;
+
   border: none;
 }
 table.content thead tr {
@@ -406,7 +412,7 @@ table.content thead tr {
 }
 table.content tbody tr {
   color: white;
-
+  
   float: left;
   border: none;
   margin: 0.6vw;
@@ -415,7 +421,7 @@ table.content tbody td {
   float: left;
   font-size: 1.8vw;
   padding-left: 1vw;
-  
+  padding-right:0.6vw ;
   padding-bottom: 0.5vw;
   padding-top: 0.5vw;
   border: none;
@@ -466,8 +472,8 @@ img {
 #main {
   background-image: url("../assets/sauna-background.jpg");
   background-size: 2560px 1440px;
-
-  font-family: TTNormsregular;
+font-family: TTNormsProNormal;
+  
   width: 100vw;
   height: 99vw;
 }
