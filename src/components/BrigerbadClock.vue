@@ -5,7 +5,7 @@
       <table class="content">
         <thead>
           <tr>
-            <th style="font-family:TTNormsBold">PROGRAMM</th>
+            <th style="font-family: TTNormsBold">PROGRAMM</th>
           </tr>
         </thead>
         <tbody>
@@ -16,10 +16,10 @@
             :class="{ applyBlue: Timeleft(item, k) }"
           >
             <div id="trow">
-              <td id="td-1">
+              <td>
                 {{ item.beginTime }}
-              </td>
-              <td>{{ item.Event }}</td>
+              
+              {{ item.Event }}</td>
             </div>
           </tr>
         </tbody>
@@ -27,52 +27,71 @@
 
       <div class="PieContainer">
         <div id="Pieoben">
-      <h1 id="PieObenH1">SOMMER STURM</h1> <p id="PieTime1"><span class=Ziffer><span style="font-size:4.5vw;">100</span><br> min</span></p>
-      <img src="../assets/zifferblatt.svg" id="Watch" alt="" />
-     
-            <div id="part2">
-             
-              <Piechart
-                :Chartdata1="Chartdata1"
-                :Chartdata2="Chartdata2"
-                :styles="styles"
-                id="pie1"
-              />
-            </div>
-          
+          <h1 id="PieObenH1">SOMMER STURM</h1>
+          <p id="PieTime1">
+            <span class="Ziffer"
+              ><span style="font-size: 4.5vw">100</span><br />
+              min</span
+            >
+          </p>
+          <img src="../assets/zifferblatt.svg" id="Watch" alt="" />
+
+          <div id="part2">
+            <Piechart
+              :Chartdata1="Chartdata1"
+              :Chartdata2="Chartdata2"
+              :styles="styles"
+              id="pie1"
+            />
+          </div>
         </div>
         <div id="Pieunten">
-          <h1 id="PieUntenH1">SOMMER STURM</h1> <p id="PieTime2"> <span class=Ziffer><span style="font-size:4.5vw;">1</span>   <br> min</span></p>
-      <img src="../assets/zifferblatt.svg" id="Watch2" alt="" />
-     
-            <div id="part2">
-             
-              <Piechartunten
-                :Chartdata1="Chartdata1"
-                :Chartdata2="Chartdata2"
-                :styles="styles"
-                id="pie2"
-              />
-            </div>
+          <h1 id="PieUntenH1">SOMMER STURM</h1>
+          <p id="PieTime2">
+            <span class="Ziffer"
+              ><span style="font-size: 4.5vw">1</span> <br />
+              min</span
+            >
+          </p>
+          <img src="../assets/watch.svg" id="Watch2" alt="" />
+
+          <div id="part2">
+            <Piechartunten
+              :Chartdata1="Chartdata1"
+              :Chartdata2="Chartdata2"
+              :styles="styles"
+              id="pie2"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="rightbox">
+        <div  id="Commercial1">
+        <img class="CommercialImg" src="../assets/icon-behandlung.svg" alt="" />
+        <div class="box">
+          <h2 class="CommercialTitle">{{ this.CommercialTitle }}</h2>
+          <h3 class="Commercialtext">{{ this.CommercialText }}</h3>
         </div>
       </div>
       
-      <div class="rightbox" v-for="item in Event" :key="item.id" :class="{slider:true}">
-        <img class="CommercialImg" src="../assets/icon-behandlung.svg" alt="">
+     
+        <div  id="Commercial2">
+        <img class="CommercialImg" src="../assets/icon-behandlung.svg" alt="" />
         <div class="box">
-          <h2 id="CommercialTitle">{{ item.Aktion }}</h2>
-          <h3 id="Commercialtext">{{ item.d1 }}</h3>
+          
+            <h2 class="CommercialTitle">{{ this.CommercialTitle }}</h2>
+            <h3 class="Commercialtext">{{ this.CommercialText}}</h3>
+          
+          
         </div>
-        
       </div>
-
+      </div>
       
     </div>
   </div>
 </template>
 
 <script>
-
 //import { doc, updateDoc } from "firebase/firestore";
 import Piechart from "./ChildPie.vue";
 import Piechartunten from "./PieUnten.vue";
@@ -85,11 +104,7 @@ export default {
   },
   data() {
     return {
-      styles: {type: Object,
-      default: () => {
-     
-      }
-      },
+      styles: { type: Object, default: () => {} },
       WhichID: undefined,
       Event: undefined,
       Programm: undefined,
@@ -99,7 +114,9 @@ export default {
       time3: "",
       Test: 200,
       applyBlueData: false,
-      
+      index: 0,
+      CommercialText: "",
+      CommercialTitle: "",
     };
   },
   watch: {},
@@ -183,19 +200,13 @@ export default {
     },*/
   },
   mounted() {
-
-    
-
-
-
-    console.log("mounted");
-    onSnapshot(collection(db, "Clock"), (querySnapshot) => {
+    /*  onSnapshot(collection(db, "Clock"), (querySnapshot) => {
       const data2 = [];
       querySnapshot.forEach((doc) => {
         const data = {
           id: doc.id,
           Intervalltest: doc.data().Chartdata2,
-          Chartdata3: doc.data().Chartdata3,
+          Chartdata3: doc.data().Chartdata3,                  
         };
         data2.push(data);
       });
@@ -203,22 +214,46 @@ export default {
       this.Intervalltest = data2[0].Intervalltest;
       this.Chartdata3 = data2[0].Chartdata3;
       console.log();
-    });
+    });*/
     onSnapshot(collection(db, "Clock Events"), (querySnapshot) => {
       const data2 = [];
       querySnapshot.forEach((doc) => {
         const data = {
           id: doc.id,
           Aktion: doc.data().Aktion,
-          Event: doc.data().Event,
+
           d1: doc.data().d1,
-          d2: doc.data().d2,
         };
         data2.push(data);
       });
-      console.log(data2);
+      console.log(data2.length)
       this.Event = data2;
-      console.log();
+      var lastindex = data2.length -1
+      this.CommercialText = data2[lastindex].d1;
+      this.CommercialTitle = data2[lastindex].Aktion;
+      this.CommercialText2 = data2[1].d1;
+      this.CommercialTitle2 = data2[1].Aktion;
+      var index = 0;
+      var index2 = 1;
+      setInterval(() => {
+      
+console.log(data2.length)
+    
+ if (data2.length == index) {
+          index = 0;
+        }
+        if (data2.length == index2) {
+          index2 = 0;
+        }
+    
+        this.CommercialTitle = data2[index].Aktion;
+        this.CommercialText = data2[index].d1;
+        this.CommercialTitle2 = data2[index2].Aktion;
+        this.CommercialText2 = data2[index2].d1;
+        index = index + 1;
+        index2 = index2 + 1;
+       
+      }, 15000);
     });
     onSnapshot(collection(db, "ClockProgramm"), (querySnapshot) => {
       const data2 = [];
@@ -232,66 +267,48 @@ export default {
         };
         data2.push(data);
       });
-      console.log(data2);
-      this.Programm = data2;
-      console.log();
-    });
 
- setInterval(()=>{
-      var index= new Date()
-      var index2 = index.getSeconds()
-    if(this.Event.length == parseInt(index2)){
-       console.log("funktioniwer")
-    }
-    else{
-      console.log("nein")
-    }
-   
-      console.log(index2)
-      console.log(this.Event.length)
-    },1500)
- },
+      this.Programm = data2;
+    });
+  },
   computed() {},
 };
 </script>
 
 <style scoped>
-.Ziffer{
-  margin-top:1.4vw ;
-  padding-bottom:1vw ;
+.Ziffer {
+  margin-top: 1.4vw;
+  padding-bottom: 1vw;
   z-index: 1;
-vertical-align: middle;
-font-size: 3vw;
+  vertical-align: middle;
+  font-size: 3vw;
 }
-#Commercialtext{
-  font-size:1.8vw ;
-  margin: 2vw;
+
+.Commercialtext {
+  font-size: 1.8vw;
+  margin-top: 2vw;
   margin-right: 5vw;
+  margin-left: 2vw;
+  margin-bottom: 10vw;
 }
-#CommercialTitle{
-  font-family:TTNormsBold;
+.CommercialTitle {
+  font-family: TTNormsBold;
   font-size: 2.5vw;
   margin: 2vw;
   margin-right: 7vw;
 }
-.CommercialImg{
+.CommercialImg {
   width: 14vw;
   height: auto;
   margin: 2vw;
   margin-top: 6vw;
-  margin-left:6vw;
+  margin-left: 6vw;
 }
-.rightbox{
-  
-    background-image: linear-gradient(to bottom, rgba(255,0,0,0), #ab6e64);
 
-  margin-left:4vw ;
-  margin-right:4vw ;
-}
-#PieTime2{
-vertical-align: middle;
-  font-family:TTNormsBold;
-text-align: center;
+#PieTime2 {
+  vertical-align: middle;
+  font-family: TTNormsBold;
+  text-align: center;
   font-size: 3vw;
   z-index: 1;
 
@@ -299,35 +316,33 @@ text-align: center;
   display: flex;
   justify-content: center;
 }
-#PieUntenH1{
-  font-family:TTNormsBold;
-text-align: center;
-font-size: 1.8vw;
-margin: 0;
-
+#PieUntenH1 {
+  font-family: TTNormsBold;
+  text-align: center;
+  font-size: 1.8vw;
+  margin: 0;
 }
 #pie2 {
-margin-top: -13.2vw;
-margin-left: 4.9vw;
+  margin-top: -13.2vw;
+  margin-left: 4.9vw;
   width: 10.5vw;
   height: auto;
-z-index:-2;
+  z-index: -2;
   padding: 0;
 }
 #Watch2 {
-
-   top: 6.3vw;
-    margin-left: 2.5vw;
+  top: 6.3vw;
+  margin-left: 2.5vw;
   width: 15vw;
   height: auto;
 
   padding: 0;
   position: absolute;
 }
-#PieTime1{
-vertical-align: middle;
-  font-family:TTNormsBold;
-text-align: center;
+#PieTime1 {
+  vertical-align: middle;
+  font-family: TTNormsBold;
+  text-align: center;
   font-size: 3vw;
   z-index: 1;
 
@@ -335,24 +350,23 @@ text-align: center;
   display: flex;
   justify-content: center;
 }
-#PieObenH1{
-  font-family:TTNormsBold;
-text-align: center;
-font-size: 1.8vw;
-margin: 0;
-
+#PieObenH1 {
+  font-family: TTNormsBold;
+  text-align: center;
+  font-size: 1.8vw;
+  margin: 0;
 }
 #pie1 {
-margin-top: -13.2vw;
-margin-left: 4.9vw;
+  margin-top: -13.2vw;
+  margin-left: 4.9vw;
   width: 10.5vw;
   height: auto;
-z-index:-2;
+  z-index: -2;
   padding: 0;
 }
-#Watch { 
+#Watch {
   top: 6.3vw;
-    margin-left: 2.5vw;
+  margin-left: 2.5vw;
   width: 15vw;
   height: auto;
 
@@ -377,7 +391,7 @@ table.content {
   padding-left: 1vw;
   margin-top: 4vw;
   margin-left: 4vw;
-
+  padding-right: 10vw;
   padding-bottom: 4vw;
   border: none;
 }
@@ -401,10 +415,11 @@ table.content tbody td {
   float: left;
   font-size: 1.8vw;
   padding-left: 1vw;
-  padding-right: 1vw;
+  
   padding-bottom: 0.5vw;
   padding-top: 0.5vw;
   border: none;
+  
 }
 .container {
   width: 100%;
@@ -420,7 +435,7 @@ table.content tbody td {
   float: left;
 }
 #Pieunten {
-   position: relative;
+  position: relative;
   background-color: rgb(0, 0, 0, 0.8);
   float: both;
   margin-top: 3vw;
@@ -450,12 +465,75 @@ img {
 }
 #main {
   background-image: url("../assets/sauna-background.jpg");
-   background-size: 2560px 1440px; 
-
+  background-size: 2560px 1440px;
 
   font-family: TTNormsregular;
   width: 100vw;
   height: 99vw;
+}
+.rightbox{
+  position: relative;
+  margin-right: 30vw ;
+  margin-left: 4vw;
+  height: 40vw;
+}
+#Commercial1 {
+    background-image: linear-gradient(to bottom, rgba(255, 0, 0, 0), #ab6e64);
+    position: absolute;
+  height: 53vw;
+    animation: mainhidden1 30s infinite;
+}
+#Commercial2 {
+   height: 53vw;
+   background-image: linear-gradient(to bottom, rgba(255, 0, 0, 0), #49877F);
+ position: absolute;
+  animation: mainhidden2 30s infinite;
+}
+@keyframes mainhidden1 {
+  0% {
+    opacity: 0;
+  }3% {
+    opacity: 0;
+  }
+  7% {
+    opacity: 1;
+  }
+  10% {
+    opacity: 1;
+  }
+  43% {
+    opacity: 1;
+  }
+  47%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+
+@keyframes mainhidden2 {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 0;
+  }
+  53% {
+    opacity: 0;
+  }
+  57%{
+    opacity: 1;
+  }
+  93%{
+    opacity: 1;
+  }
+  97%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 0;
+  }
 }
 </style>
 

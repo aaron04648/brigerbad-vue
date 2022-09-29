@@ -83,9 +83,7 @@ const data2 = []
 }
 data2.push(data) 
   });
-  console.log(data2)
 
-  console.log()
 
 
 });

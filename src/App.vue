@@ -26,7 +26,7 @@ export default {
 }
 @font-face {
   font-family: "TTNormsregular";
-  src: local("TTNorms-Bold"), url(./Fonts/TTNorms-Regular.otf) format("truetype");
+  src: local("TTNorms-Bold"), url(./Fonts/TT_Norms_Pro_Normal.ttf) format("truetype");
 }
 @font-face {
   font-family: "TTNormsBold";
@@ -34,6 +34,7 @@ export default {
 }
 
 #app {
+  overflow: hidden;
   font-weight: bold;
   font-family: TTNormsThin;
   -webkit-font-smoothing: antialiased;
